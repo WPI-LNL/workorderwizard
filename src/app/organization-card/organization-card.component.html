@@ -1,0 +1,17 @@
+<div class="card selectable-card" [ngClass]="{'selected': org.selected}">
+	<div class="card-body">
+		<h5 class="card-title">{{ org.name }}</h5>
+		<p class="card-text">
+			<span *ngIf="org.owner"><span class="badge badge-success">Owner</span>&nbsp;</span>
+			<span *ngIf="org.member"><span class="badge badge-info">Member</span>&nbsp;</span>
+			<span *ngIf="org.delinquent"><span class="badge badge-danger">Billing Flag</span>&nbsp;</span>
+		</p>
+		<p class="card-text">
+			<span *ngIf="org.email">{{ org.email }}<br></span>
+			<span *ngIf="org.phone">{{ org.phone }}<br></span>
+			<span *ngIf="org.address">{{ org.address }}</span>
+		</p>
+		<button *ngIf="!searchMode" class="btn btn-primary" (click)="changeButtonPressed.emit()">Change</button>
+	</div>
+	<div class="cornerbox" *ngIf="searchMode"></div>
+</div>

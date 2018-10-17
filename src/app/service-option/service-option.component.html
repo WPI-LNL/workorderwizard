@@ -1,0 +1,16 @@
+<div class="row">
+	<h1>{{ serviceOption.title }}</h1>
+	{{ serviceOption.description }}
+</div>
+<div class="row">
+	<div class="col-md mb-4" *ngFor="let choice of serviceOption.choices">
+		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="serviceOption.selectedChoice = choice">
+			<img class="card-img-top" src="https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg">
+			<div class="card-body">
+				<h5 class="card-title">{{ choice.title }}</h5>
+				{{ choice.description }}
+			</div>
+			<div class="cornerbox"></div>
+		</div>
+	</div>
+</div>

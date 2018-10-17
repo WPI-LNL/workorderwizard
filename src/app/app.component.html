@@ -1,0 +1,156 @@
+<nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-dark">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarContent" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarContent" [ngbCollapse]="navbarCollapsed">
+		<div class="mt-2 mt-sm-0 container-fluid">
+			<div class="row">
+				<app-wizard-progress-step *ngFor="let step of STEPS" (stepClick)="stepClick($event)" class="col" [title]="step"></app-wizard-progress-step>
+			</div>
+		</div>
+	</div>
+</nav>
+<ng-template #loadingModal let-modal>
+	<div class="modal-body d-flex">
+		<div id="preload-spinner" class="fa fa-refresh fa-spin fa-5x"></div>
+		<div class="ml-4">Looking for last year's event&hellip;</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-danger">Cancel</button>
+	</div>
+</ng-template>
+<main role="main" class="container pt-navbarcollapsed pt-sm-navbarexpanded">
+	<!-- Welcome -->
+	<div class="row" *ngIf="activeStep === 'Welcome'">
+		<div class="col">
+			<button (click)="advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
+		</div>
+	</div>
+	<!-- /Welcome -->
+	<!-- Client -->
+	<div class="row" *ngIf="activeStep === 'Client'">
+		<div class="col-md-4">
+			<h1>You</h1>
+			<div *ngIf="userContactInfo" class="card">
+				<div class="card-body">
+					<h5 class="card-title">{{ userContactInfo.name }}</h5>
+					<p class="card-text">
+						<span *ngIf="userContactInfo.email">{{ userContactInfo.email }}<br></span>
+						<span *ngIf="userContactInfo.phone">{{ userContactInfo.phone }}<br></span>
+						<span *ngIf="userContactInfo.address">{{ userContactInfo.address }}</span>
+					</p>
+					<button class="btn btn-primary">Edit Contact Info</button>
+				</div>
+			</div>
+			<div *ngIf="!userContactInfo" class="fa fa-refresh fa-spin fa-4x w-100 text-center"></div>
+		</div>
+		<div class="col-md-8">
+			<h1>Organization</h1>
+			<div class="row" *ngIf="selectedOrg">
+				<app-organization-card class="col-md-6 mb-4" [org]="selectedOrg" [searchMode]="orgSearchVisible" (changeButtonPressed)="displayOrgSearch()"></app-organization-card>
+				<div class="col-md-6">
+					<ngb-alert *ngIf="selectedOrg.delinquent" type="warning" [dismissible]="false">
+						<strong>Heads up!</strong> Your organization has been flagged due to non-payment.
+						You may be asked to pay your outstanding balance due before we will approve your event.
+						To start a conversation about this now, contact our Treasurer at <a href="mailto:lnl-t@wpi.edu">lnl-t@wpi.edu</a>.
+					</ngb-alert>
+					<button (click)="advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
+				</div>
+			</div>
+			<div *ngIf="orgs" [hidden]="!orgSearchVisible">
+				<div class="row">
+					<div class="col">
+						<input #orgSearch type="text" class="form-control" placeholder="Search for your organization or department" (input)="orgSearchChange($event.target.value)">
+					</div>
+				</div>
+				<div class="row">
+					<app-organization-card *ngFor="let org of orgSearchResults" class="col-md-6 mt-4" [org]="org" searchMode="true" (click)="selectOrg(org)"></app-organization-card>
+				</div>
+			</div>
+			<div *ngIf="!orgs" [hidden]="!orgSearchVisible" class="fa fa-refresh fa-spin fa-4x w-100 text-center"></div>
+		</div>
+	</div>
+	<!-- /Client -->
+	<!-- Event Details -->
+	<div class="row" *ngIf="activeStep === 'Event Details'">
+		<div class="col-sm">
+			<div class="form-group">
+				<label for="eventName">Event Name</label>
+				<input type="text" [(ngModel)]="event.name" class="form-control" id="eventName">
+			</div>
+			<div class="form-group">
+				<label for="eventLocationDropdown">Location</label>
+				<div *ngIf="locations" ngbDropdown>
+					<button ngbDropdownToggle class="btn btn-outline-primary" id="eventLocationDropdown" (click)="focusLocationSearch()">{{ event.location ? event.location.name + ' \u2013 ' + event.location.building : 'Select a location' }}</button>
+					<div ngbDropdownMenu aria-labelledby="eventLocationDropdown">
+						<div class="px-2">
+							<input #locationSearch type="text" class="form-control" placeholder="Search for location" (input)="locationSearchChange($event.target.value)" (click)="$event.stopPropagation()">
+						</div>
+						<div class="dropdown-divider"></div>
+						<button class="dropdown-item" *ngFor="let location of locationSearchResults" (click)="event.location = location">{{ location.name }}</button>
+					</div>
+				</div>
+				<div *ngIf="!locations"><i class="fa fa-refresh fa-spin fa-2x"></i></div>
+			</div>
+			<div class="form-group">
+				<label for="eventDescription">Event Description</label>
+				<textarea [(ngModel)]="event.description" class="form-control" id="eventDescription" aria-describedby="eventDescriptionHelp"></textarea>
+				<small id="eventDescriptionHelp" class="form-text text-muted">
+					Please use this space to provide general information about your event.
+					Specific requirements for the Sound/Lights/Projection portion of your event such as "We need 3 wireless handheld microphones." will be asked for on a later page.
+				</small>
+			</div>
+		</div>
+		<div class="col-sm">
+			<div class="row">
+				<div class="col">
+					Setup Completed By
+					<app-datetime-picker [(date)]="event.setupCompleteDate" [(time)]="event.setupCompleteTime"></app-datetime-picker>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<span>Event Start Time</span>
+					<app-datetime-picker [(date)]="event.startDate" [(time)]="event.startTime"></app-datetime-picker>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<span>Event End Time</span>
+					<app-datetime-picker [(date)]="event.endDate" [(time)]="event.endTime"></app-datetime-picker>
+				</div>
+			</div>
+		</div>
+		<button (click)="advanceStep(); displayLoadingModal();" [disabled]="!isEventDetailsComplete()" ngbTooltip="All fields are required" placement="top" [disableTooltip]="isEventDetailsComplete()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
+	</div>
+	<!-- /Event Details -->
+	<!-- Services -->
+	<div class="row" *ngIf="activeStep === 'Services'">
+		<div class="col-lg-9">
+			<app-service-option *ngFor="let serviceOption of event.serviceOptions" [serviceOption]="serviceOption"></app-service-option>
+		</div>
+		<div class="col-lg-3">
+			<div class="sticky-top">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Service</th>
+							<th scope="col">Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let serviceOption of event.nonzeroServiceOptions()">
+							<td>{{ serviceOption.title }}: {{ serviceOption.selectedChoice.title }}</td>
+							<td>{{ serviceOption.selectedChoice.price }}</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<td>Total</td>
+						<td>{{ event.getTotalPrice() }}</td>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- /Services -->
+</main>

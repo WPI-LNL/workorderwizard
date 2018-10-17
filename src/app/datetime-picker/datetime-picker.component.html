@@ -1,0 +1,11 @@
+<div class="datetime">
+	<div>
+		<div class="input-group">
+			<input class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="date" ngbDatepicker #d="ngbDatepicker">
+			<div class="input-group-append">
+				<button class="btn btn-outline-primary fa fa-calendar-o" (click)="d.toggle()" type="button"></button>
+			</div>
+		</div>
+	</div>
+	<ngb-timepicker [(ngModel)]="time" [minuteStep]="15" [meridian]="true" class="ml-3"></ngb-timepicker>
+</div>

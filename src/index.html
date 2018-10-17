@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>WorkorderWizard</title>
+	<base href="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<style>
+		#preload-wrapper {
+			height: 100vh;
+			width: 100vw;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		#preload-spinnerWrapper {
+			flex: 0;
+			display: flex;
+		}
+		
+		#preload-error-icon {
+			display: none;
+		}
+		
+		#preload-error-message {
+			text-align: center;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<app-root>
+		<div id="preload-wrapper">
+			<div>
+				<div id="preload-spinnerWrapper">
+					<span id="preload-spinner" class="fa fa-cog fa-spin fa-5x"></span>
+					<span id="preload-error-icon" class="fa fa-exclamation-triangle fa-5x text-danger"></span>
+				</div>
+				<p id="preload-error-message">Application error</p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			window.onerror = function(error) {
+				document.getElementById('preload-spinner').classList.remove('fa-spin');
+				document.getElementById('preload-error-icon').style.display = 'inline-block';
+				document.getElementById('preload-error-message').style.display = 'block';
+			}
+		</script>
+	</app-root>
+</body>
+</html>
