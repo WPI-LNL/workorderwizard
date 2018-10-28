@@ -1,4 +1,7 @@
+import * as serviceOptionsJson from '../assets/service_options.json';
+
 export class Organization {
+	id: number;
 	name: string;
 	shortname: string;
 	email: string;
@@ -15,19 +18,9 @@ export class Organization {
 }
 
 export class Location {
+	id: number;
 	name: string;
 	building: string;
-
-	constructor(data: object) {
-		Object.assign(this, data);
-	}
-}
-
-export class ServiceOption {
-	title: string;
-	description: string;
-	choices: ServiceOptionChoice[];
-	selectedChoice: ServiceOptionChoice;
 
 	constructor(data: object) {
 		Object.assign(this, data);
@@ -39,9 +32,56 @@ export class ServiceOptionChoice {
 	description: string;
 	value: any;
 	price: number;
+	imageUrl: string;
+	detailPrompt: string;
 
 	constructor(data: object) {
 		Object.assign(this, data);
+	}
+}
+
+export class ServiceOption {
+	title: string;
+	description: string;
+	choices: ServiceOptionChoice[];
+	selectedChoice: ServiceOptionChoice;
+	detail: string;
+
+	constructor(data: object) {
+		const data2 = Object.assign({}, data);
+		delete data2['choices'];
+		Object.assign(this, data2);
+		this.choices = [];
+		for (const choiceData of data['choices']) {
+			this.choices.push(new ServiceOptionChoice(choiceData));
+		}
+	}
+}
+
+export class Service {
+	title: string;
+	serviceOptions: ServiceOption[];
+
+	constructor(title: string) {
+		this.title = title;
+		this.serviceOptions = [];
+	}
+
+	getTotalPrice() {
+		let total = 0;
+		for (const choice of this.serviceOptions.map(option => option.selectedChoice)) {
+			if (choice) {
+				if (choice.price === undefined) {
+					throw new Error('Choice is missing a price.');
+				}
+				total += choice.price;
+			}
+		}
+		return total;
+	}
+
+	nonzeroServiceOptions() {
+		return this.serviceOptions.filter(opt => opt.selectedChoice && opt.selectedChoice.price);
 	}
 }
 
@@ -49,46 +89,56 @@ export class Event {
 	name: string;
 	description: string;
 	location: Location;
-	startDate: string;
+	startDate: object;
 	startTime: object;
-	endDate: string;
+	endDate: object;
 	endTime: object;
-	setupCompleteDate: string;
+	setupCompleteDate: object;
 	setupCompleteTime: object;
-	serviceOptions: ServiceOption[];
+	services: Service[];
+
+	setupCompleteDatetime() {
+		return this.getDatetime(this.setupCompleteDate, this.setupCompleteTime);
+	}
+
+	startDatetime() {
+		return this.getDatetime(this.startDate, this.startTime);
+	}
+
+	endDatetime() {
+		return this.getDatetime(this.endDate, this.endTime);
+	}
+
+	getDatetime(date: object, time: object) {
+		if (date) {
+			if (time) {
+				return new Date(date['year'], date['month'], date['day'], time['hour'], time['minute']);
+			}
+			return new Date(date['year'], date['month'], date['day']);
+		}
+		return null;
+	}
 
 	constructor() {
-		this.serviceOptions = [];
-			this.serviceOptions.push(new ServiceOption({title: 'Stage lighting', choices: [
-				new ServiceOptionChoice({title: 'None', price: 0, value: null}),
-				new ServiceOptionChoice({title: 'Basic', price: 50, description: 'Basic stage lighting lighting that can be dimmed. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures.'}),
-				new ServiceOptionChoice({title: 'Advanced', price: 75, description: 'Anything more than Basic.'})
-			]}));
-			this.serviceOptions.push(new ServiceOption({title: 'Area lighting', choices: [
-				new ServiceOptionChoice({title: 'None', price: 0, value: null}),
-				new ServiceOptionChoice({title: 'Basic', price: 50, description: 'Basic area lighting lighting that can be dimmed. No changing colors, moving lights, different scenes, etc.'}),
-				new ServiceOptionChoice({title: 'Advanced', price: 75, description: 'Anything more than Basic.'})
-			]}));
-			this.serviceOptions.push(new ServiceOption({title: 'Uplighting', choices: [
-				new ServiceOptionChoice({title: 'No', price: 0, value: null}),
-				new ServiceOptionChoice({title: 'Yes', price: 50, description: 'Prettify the room.'}),
-			]}));
-		}
-
-		getTotalPrice() {
-			let total = 0;
-			for (const choice of this.serviceOptions.map(option => option.selectedChoice)) {
-				if (choice) {
-					if (choice.price === undefined) {
-						throw new Error('Choice is missing a price.');
-					}
-					total += choice.price;
-				}
+		this.services = [];
+		for (const serviceJson of serviceOptionsJson.default) {
+			const service = new Service(serviceJson['title']);
+			for (const serviceOptionJson of serviceJson['options']) {
+				service.serviceOptions.push(new ServiceOption(serviceOptionJson));
 			}
-			return total;
+			this.services.push(service);
 		}
+	}
 
-		nonzeroServiceOptions() {
-			return this.serviceOptions.filter(opt => opt.selectedChoice && opt.selectedChoice.price);
+	getTotalPrice() {
+		let total = 0;
+		for (const service of this.services) {
+			total += service.getTotalPrice();
 		}
+		return total;
+	}
+
+	nonzeroServiceOptions() {
+		return Array.prototype.concat.apply([], this.services.map(service => service.nonzeroServiceOptions()));
+	}
 }

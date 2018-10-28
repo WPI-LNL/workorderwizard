@@ -1,16 +1,24 @@
-<div class="row">
-	<h1>{{ serviceOption.title }}</h1>
-	{{ serviceOption.description }}
+<div class="row mb-3">
+	<div class="col">
+		<h2>{{ serviceOption.title }}</h2>
+		{{ serviceOption.description }}
+	</div>
 </div>
-<div class="row">
-	<div class="col-md mb-4" *ngFor="let choice of serviceOption.choices">
+<div class="row mb-4">
+	<div class="col-md" *ngFor="let choice of serviceOption.choices">
 		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="serviceOption.selectedChoice = choice">
-			<img class="card-img-top" src="https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg">
+			<img *ngIf="choice.imageUrl" class="card-img-top" src="{{ choice.imageUrl }}">
 			<div class="card-body">
 				<h5 class="card-title">{{ choice.title }}</h5>
 				{{ choice.description }}
 			</div>
 			<div class="cornerbox"></div>
 		</div>
+	</div>
+</div>
+<div class="row mb-4" *ngIf="serviceOption.selectedChoice && serviceOption.selectedChoice.detailPrompt">
+	<div class="col">
+		<label>{{ serviceOption.selectedChoice.detailPrompt }}</label>
+		<textarea [(ngModel)]="serviceOption.detail" class="form-control"></textarea>
 	</div>
 </div>

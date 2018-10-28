@@ -9,6 +9,8 @@ import { WizardProgressStepComponent } from './wizard-progress-step/wizard-progr
 import { OrganizationCardComponent } from './organization-card/organization-card.component';
 import { DatetimePickerComponent } from './datetime-picker/datetime-picker.component';
 import { ServiceOptionComponent } from './service-option/service-option.component';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
+import { ServiceComponent } from './service/service.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ServiceOptionComponent } from './service-option/service-option.componen
     WizardProgressStepComponent,
     OrganizationCardComponent,
     DatetimePickerComponent,
-    ServiceOptionComponent
+    ServiceOptionComponent,
+    ErrorModalComponent,
+    ServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,7 @@ import { ServiceOptionComponent } from './service-option/service-option.componen
     NgbModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+	entryComponents: [ErrorModalComponent]
 })
 export class AppModule { }

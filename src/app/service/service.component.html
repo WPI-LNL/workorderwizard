@@ -1,0 +1,6 @@
+<div class="row mb-3 border-bottom">
+	<div class="col">
+		<h1 class="text-center">{{ service.title }}</h1>
+	</div>
+</div>
+<app-service-option *ngFor="let serviceOption of service.serviceOptions" [serviceOption]="serviceOption"></app-service-option>

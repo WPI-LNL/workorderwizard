@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Event, Location, Organization, ServiceOption, ServiceOptionChoice } from './models';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { WizardProgressStepComponent } from './wizard-progress-step/wizard-progress-step.component';
 
 @Component({
@@ -15,9 +16,11 @@ export class AppComponent implements OnInit {
 	navbarCollapsed = true;
 	activeStep = 'Welcome';
 	@ViewChildren(WizardProgressStepComponent) wizardSteps: QueryList<WizardProgressStepComponent>;
-	@ViewChild('loadingModal') loadingModal: ElementRef;
 	event: Event;
 	userContactInfo: object;
+
+	@ViewChild('loadingModal') loadingModal: ElementRef;
+	@ViewChild('loginRequiredModal') loginRequiredModal: ElementRef;
 
 	@ViewChild('orgSearch') orgSearchInput: ElementRef;
 	orgSearchVisible = true;
@@ -149,7 +152,48 @@ export class AppComponent implements OnInit {
 			appComponent.orgSearchResults = appComponent.defaultOrgSearchResults;
 			appComponent.locationSearchResults = appComponent.locations;
 		}, function(error) {
-			// TODO make error modal
+			if (error.status === 401) {
+				appComponent.modalService.open(appComponent.loginRequiredModal, {backdrop: 'static', keyboard: false});
+				window.location.href = 'http://localhost:8000/login/?next=/me';
+			} else {
+				const msg = 'Application data could not be retrieved from the server. Please try refreshing the page.';
+				appComponent.modalService.open(ErrorModalComponent, {backdrop: 'static', keyboard: false}).componentInstance.message = msg;
+			}
+		});
+	}
+
+	submit() {
+		const data = {};
+		if (this.selectedOrg) {
+			data['org'] = this.selectedOrg.id;
+		}
+		data['event_name'] = this.event.name;
+		data['description'] = this.event.description;
+		if (this.event.location) {
+			data['location'] = this.event.location.id;
+		}
+		if (this.event.startDatetime()) {
+			data['start'] = this.event.startDatetime().toISOString();
+		}
+		if (this.event.endDatetime()) {
+			data['end'] = this.event.endDatetime().toISOString();
+		}
+		if (this.event.setupCompleteDatetime()) {
+			data['setup_complete'] = this.event.setupCompleteDatetime().toISOString();
+		}
+		data['services'] = {};
+		for (const service of this.event.services) {
+			data['services'][service.title] = {};
+			for (const serviceOption of service.serviceOptions) {
+				if (serviceOption.selectedChoice) {
+					data['services'][service.title][serviceOption.title] = serviceOption.selectedChoice.title;
+				}
+			}
+		}
+		this.http.post('http://localhost:8000/db/workorderwizard-json', data,
+				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {
+			console.log(response);
+		}, function(error) {
 			console.log(error);
 		});
 	}

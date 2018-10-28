@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarContent" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -10,19 +10,29 @@
 		</div>
 	</div>
 </nav>
+<!-- Modals -->
 <ng-template #loadingModal let-modal>
 	<div class="modal-body d-flex">
-		<div id="preload-spinner" class="fa fa-refresh fa-spin fa-5x"></div>
+		<div class="fa fa-refresh fa-spin fa-5x"></div>
 		<div class="ml-4">Looking for last year's event&hellip;</div>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-danger">Cancel</button>
 	</div>
 </ng-template>
-<main role="main" class="container pt-navbarcollapsed pt-sm-navbarexpanded">
+<ng-template #loginRequiredModal let-modal>
+	<div class="modal-body d-flex">
+		<div class="fa fa-sign-in fa-5x"></div>
+		<div class="ml-4">Login required. Redirecting&hellip;</div>
+	</div>
+</ng-template>
+<!-- Main content -->
+<main role="main" class="container">
 	<!-- Welcome -->
 	<div class="row" *ngIf="activeStep === 'Welcome'">
 		<div class="col">
+			<h1>Welcome to Lens and Lights' new work order form!</h1>
+			<p>Please note that, as before, events submitted with less than 2 weeks' notice are considered late and will incur a late fee.</p>
 			<button (click)="advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
 		</div>
 	</div>
@@ -126,8 +136,8 @@
 	<!-- /Event Details -->
 	<!-- Services -->
 	<div class="row" *ngIf="activeStep === 'Services'">
-		<div class="col-lg-9">
-			<app-service-option *ngFor="let serviceOption of event.serviceOptions" [serviceOption]="serviceOption"></app-service-option>
+		<div class="col-lg-9 col-lg-push-3">
+			<app-service *ngFor="let service of event.services" [service]="service"></app-service>
 		</div>
 		<div class="col-lg-3">
 			<div class="sticky-top">
@@ -149,8 +159,101 @@
 						<td>{{ event.getTotalPrice() }}</td>
 					</tfoot>
 				</table>
+				<button (click)="advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
 			</div>
 		</div>
 	</div>
 	<!-- /Services -->
+	<!-- Review -->
+	<div *ngIf="activeStep === 'Review'">
+		<div class="row">
+			<div class="col">
+				<p>The information you have entered is listed below. Press Submit to submit the work order.
+				After you submit, we will contact you by email with any questions we have about your event.
+				After all questions are answered, we will provide you with an official quote for our services.
+				The price calculated by this online form should not be heavily relied on, as you may select options
+				that are not appropriate for your event and some events may incur extra charges that this form cannot reflect.</p>
+				<button (click)="submit()" class="btn btn-block btn-lg btn-primary mb-4">Submit</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th scope="row">Submitter</th>
+							<td>
+								<span *ngIf="userContactInfo">
+									{{ userContactInfo.name }}
+									<span *ngIf="userContactInfo.email"><br>{{ userContactInfo.email }}</span>
+									<span *ngIf="userContactInfo.phone"><br>{{ userContactInfo.phone }}</span>
+									<span *ngIf="userContactInfo.address"><br>{{ userContactInfo.address }}</span>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">Organization to bill</th>
+							<td>
+								<span *ngIf="selectedOrg">
+									{{ selectedOrg.name }}
+									<span *ngIf="selectedOrg.email"><br>{{ selectedOrg.email }}</span>
+									<span *ngIf="selectedOrg.phone"><br>{{ selectedOrg.phone }}</span>
+									<span *ngIf="selectedOrg.address"><br>{{ selectedOrg.address }}</span>
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">Event Name</th>
+							<td>{{ event.name }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Location</th>
+							<td>{{ event.location ? event.location.name + ' \u2013 ' + event.location.building : '' }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Setup complete</th>
+							<td>{{ event.setupCompleteDatetime() ? event.setupCompleteDatetime().toLocaleString() : '' }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Start</th>
+							<td>{{ event.startDatetime() ? event.startDatetime().toLocaleString() : '' }}</td>
+						</tr>
+						<tr>
+							<th scope="row">End</th>
+							<td>{{ event.endDatetime() ? event.endDatetime().toLocaleString() : '' }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Description</th>
+							<td>{{ event.description }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col">
+				<div class="row" *ngFor="let service of event.services">
+					<div class="col">
+						<h1>{{ service.title }}</h1>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Service</th>
+									<th scope="col">Price</th>
+									<th scope="col">Detail</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let serviceOption of service.serviceOptions">
+									<td>{{ serviceOption.title }}:{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.title : 'N/A' }}</td>
+									<td>{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.price : '' }}</td>
+									<td>{{ serviceOption.detail }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>		
+				</div>
+			</div>
+		</div>
+		<button (click)="submit()" class="btn btn-block btn-lg btn-primary mb-4">Submit</button>
+	</div>
+	<!-- /Review -->
 </main>

@@ -1,0 +1,190 @@
+[
+	{
+		"title": "Sound",
+		"options": [
+			{
+				"title": "Inputs",
+				"choices": [
+					{
+						"title": "Small",
+						"price": 0,
+						"detailPrompt": "Please describe your microphone and laptop/phone input requirements.",
+						"description": "For playing music, and up to 2 microphones for announcements or speakers."
+					},
+					{
+						"title": "Medium",
+						"price": 50,
+						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, laptop input, etc.",
+						"description": "Up to 8 inputs, intended for smaller scale events that have live performances, a capella shows, etc."
+					},
+					{
+						"title": "Large",
+						"price": 75,
+						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, etc. If your event is a stage show with multiple acts, you will be asked for a set list via email and you only need to provide a general description here.",
+						"description": "Intended for events such as large concerts, bands, stage shows, etc.",
+						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+					}
+				]
+			},
+			{
+				"title": "Speakers",
+				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
+				"choices": [
+					{
+						"title": "House System",
+						"price": 0,
+						"description": "We will use the speakers that are permanently installed in the venue."
+					},
+					{
+						"title": "Small",
+						"price": 50,
+						"description": "Small speakers"
+					},
+					{
+						"title": "Large",
+						"price": 1000000,
+						"description": "Big speakers"
+					}
+				]
+			},
+			{
+				"title": "Subwoofers",
+				"choices": [
+					{
+						"title": "No",
+						"price": 0
+					},
+					{
+						"title": "Yes",
+						"price": 50,
+						"description": "Lots of wub"
+					}
+				]
+			},
+			{
+				"title": "Monitors",
+				"choices": [
+					{
+						"title": "No",
+						"price": 0
+					},
+					{
+						"title": "Yes",
+						"price": 50,
+						"detailPrompt": "Please describe your monitor requirements.",
+						"description": "Your band can hear themselves"
+					}
+				]
+			}
+		]
+	},
+	{
+		"title": "Lighting",
+		"options": [
+			{
+				"title": "Stage lighting",
+				"choices": [
+					{
+						"title": "None",
+						"price": 0,
+						"value": null
+					},
+					{
+						"title": "Basic",
+						"price": 50,
+						"detailPrompt": "Please describe your needs.",
+						"description": "Basic stage lighting lighting that can be dimmed. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures."
+					},
+					{
+						"title": "Advanced",
+						"price": 75,
+						"detailPrompt": "Please describe your needs.",
+						"description": "Anything more than Basic.",
+						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+					}
+				]
+			},
+			{
+				"title": "Area lighting",
+				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
+				"choices": [
+					{
+						"title": "None",
+						"price": 0,
+						"value": null
+					},
+					{
+						"title": "Basic",
+						"price": 50,
+						"detailPrompt": "Please describe your needs.",
+						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc."
+					},
+					{
+						"title": "Advanced",
+						"price": 75,
+						"detailPrompt": "Please describe your needs.",
+						"description": "Anything more than Basic."
+					}
+				]
+			},
+			{
+				"title": "Uplighting",
+				"choices": [
+					{
+						"title": "No",
+						"price": 0,
+						"value": null
+					},
+					{
+						"title": "Yes",
+						"price": 50,
+						"description": "Prettify the room."
+					}
+				]
+			},
+			{
+				"title": "Special spot / photo booth light",
+				"choices": [
+					{
+						"title": "No",
+						"price": 0,
+						"value": null
+					},
+					{
+						"title": "Yes",
+						"price": 10
+					}
+				]
+			},
+			{
+				"title": "Haze",
+				"description": "We own one fog machine and can rent more to suit your needs. Use of haze requires a fire watch which you must arrange and pay for.",
+				"choices": [
+					{
+						"title": "No",
+						"price": 0,
+						"value": null
+					},
+					{
+						"title": "Yes",
+						"price": 20
+					}
+				]
+			},
+			{
+				"title": "Truss-mounted projector",
+				"choices": [
+					{
+						"title": "No",
+						"price": 0,
+						"value": null
+					},
+					{
+						"title": "Yes",
+						"price": 20
+					}
+				]
+			}
+		]
+	}
+]
