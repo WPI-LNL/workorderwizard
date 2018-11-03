@@ -1,4 +1,4 @@
-<div class="card selectable-card" [ngClass]="{'selected': org.selected, 'disable-selected-indication': !searchMode}">
+<div class="card selectable-card" [ngClass]="{'selected': org.selected}">
 	<div class="card-body">
 		<h5 class="card-title">{{ org.name }}</h5>
 		<p class="card-text">
@@ -13,5 +13,5 @@
 		</p>
 		<button *ngIf="!searchMode" class="btn btn-primary" (click)="changeButtonPressed.emit()">Change</button>
 	</div>
-	<div class="cornerbox"></div>
+	<div class="cornerbox" *ngIf="searchMode"></div>
 </div>
