@@ -4,7 +4,16 @@
 		{{ serviceOption.description }}
 	</div>
 </div>
-<div class="row mb-4">
+<div class="row mb-4" *ngIf="serviceOption.isBoolean">
+	<div class="col">
+		<div class="custom-control custom-checkbox">
+			<!-- TODO fix the id/for to never contain spaces -->
+			<input type="checkbox" class="custom-control-input" id="{{ serviceOption.title }}-checkbox" (change)="serviceOption.selectedChoice = $event.target.checked ? serviceOption.choices[0] : null">
+			<label class="custom-control-label" for="{{ serviceOption.title }}-checkbox">{{ serviceOption.title }}</label>
+		</div>
+	</div>
+</div>
+<div class="row mb-4" *ngIf="!serviceOption.isBoolean">
 	<div class="col-md" *ngFor="let choice of serviceOption.choices">
 		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="serviceOption.selectedChoice = choice">
 			<img *ngIf="choice.imageUrl" class="card-img-top" src="{{ choice.imageUrl }}">

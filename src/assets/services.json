@@ -63,11 +63,8 @@
 			},
 			{
 				"title": "Monitors",
+				"isBoolean": true,
 				"choices": [
-					{
-						"title": "No",
-						"price": 0
-					},
 					{
 						"title": "Yes",
 						"price": 50,
