@@ -76,6 +76,13 @@
 					}
 				]
 			}
+		],
+		"addons": [
+			{
+				"title": "Wireless Microphone",
+				"description": "Gotta love batteries",
+				"price": 10
+			}
 		]
 	},
 	{
@@ -143,20 +150,6 @@
 				]
 			},
 			{
-				"title": "Special spot / photo booth light",
-				"choices": [
-					{
-						"title": "No",
-						"price": 0,
-						"value": null
-					},
-					{
-						"title": "Yes",
-						"price": 10
-					}
-				]
-			},
-			{
 				"title": "Haze",
 				"description": "We own one fog machine and can rent more to suit your needs. Use of haze requires a fire watch which you must arrange and pay for.",
 				"choices": [
@@ -184,6 +177,13 @@
 						"price": 20
 					}
 				]
+			}
+		],
+		"addons": [
+			{
+				"title": "Special spot / photo booth light",
+				"description": "For all your inconveniently-located lighting needs",
+				"price": 10
 			}
 		]
 	}

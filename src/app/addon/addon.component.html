@@ -1,0 +1,14 @@
+<div class="row mb-3">
+	<div class="col">
+		<h2>{{ addon.title }}</h2>
+		{{ addon.description }}
+	</div>
+</div>
+<div class="row mb-4">
+	<div class="col">
+		<div class="form-inline">
+			<label class="mr-3">Quantity</label>
+			<input type="number" class="quantity" [(ngModel)]="addon.quantity" min="0">
+		</div>
+	</div>
+</div>

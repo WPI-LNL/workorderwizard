@@ -11,6 +11,7 @@ import { DatetimePickerComponent } from './datetime-picker/datetime-picker.compo
 import { ServiceOptionComponent } from './service-option/service-option.component';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { ServiceComponent } from './service/service.component';
+import { AddonComponent } from './addon/addon.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ServiceComponent } from './service/service.component';
     DatetimePickerComponent,
     ServiceOptionComponent,
     ErrorModalComponent,
-    ServiceComponent
+    ServiceComponent,
+    AddonComponent
   ],
   imports: [
     BrowserModule,

@@ -189,6 +189,9 @@ export class AppComponent implements OnInit {
 					data['services'][service.title][serviceOption.title] = serviceOption.selectedChoice.title;
 				}
 			}
+			for (const addon of service.addons) {
+				data['services'][service.title][addon.title] = addon.quantity;
+			}
 		}
 		this.http.post('http://localhost:8000/db/workorderwizard-json', data,
 				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {

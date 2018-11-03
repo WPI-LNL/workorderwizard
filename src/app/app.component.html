@@ -131,7 +131,7 @@
 				</div>
 			</div>
 		</div>
-		<button (click)="advanceStep(); displayLoadingModal();" [disabled]="!isEventDetailsComplete()" ngbTooltip="All fields are required" placement="top" [disableTooltip]="isEventDetailsComplete()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
+		<button (click)="advanceStep()" [disabled]="!isEventDetailsComplete()" ngbTooltip="All fields are required" placement="top" [disableTooltip]="isEventDetailsComplete()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
 	</div>
 	<!-- /Event Details -->
 	<!-- Services -->
@@ -152,6 +152,10 @@
 						<tr *ngFor="let serviceOption of event.nonzeroServiceOptions()">
 							<td>{{ serviceOption.title }}: {{ serviceOption.selectedChoice.title }}</td>
 							<td>{{ serviceOption.selectedChoice.price }}</td>
+						</tr>
+						<tr *ngFor="let addon of event.nonzeroAddons()">
+							<td>{{ addon.title }} x {{ addon.quantity }}</td>
+							<td>{{ addon.price * addon.quantity }}</td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -246,6 +250,11 @@
 									<td>{{ serviceOption.title }}:{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.title : 'N/A' }}</td>
 									<td>{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.price : '' }}</td>
 									<td>{{ serviceOption.detail }}</td>
+								</tr>
+								<tr *ngFor="let addon of service.addons">
+									<td>{{ addon.title }} x {{ addon.quantity }}</td>
+									<td>{{ addon.quantity > 0 ? addon.price * addon.quantity : '' }}</td>
+									<td></td>
 								</tr>
 							</tbody>
 						</table>
