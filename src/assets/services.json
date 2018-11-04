@@ -56,7 +56,8 @@
 						"price": 50,
 						"description": "Lots of wub"
 					}
-				]
+				],
+				"defaultChoice": "No"
 			},
 			{
 				"title": "Monitors",
@@ -68,7 +69,8 @@
 						"detailPrompt": "Please describe your monitor requirements.",
 						"description": "Your band can hear themselves"
 					}
-				]
+				],
+				"defaultChoice": "No"
 			}
 		],
 		"addons": [
@@ -103,7 +105,8 @@
 						"description": "Anything more than Basic.",
 						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
 					}
-				]
+				],
+				"defaultChoice": "None"
 			},
 			{
 				"title": "Area lighting",
@@ -126,7 +129,8 @@
 						"detailPrompt": "Please describe your needs.",
 						"description": "Anything more than Basic."
 					}
-				]
+				],
+				"defaultChoice": "None"
 			},
 			{
 				"title": "Uplighting",
@@ -138,7 +142,8 @@
 						"description": "Prettify the room.",
 						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
 					}
-				]
+				],
+				"defaultChoice": "No"
 			},
 			{
 				"title": "Haze",

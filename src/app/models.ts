@@ -56,6 +56,14 @@ export class ServiceOption {
 		for (const choiceData of data['choices']) {
 			this.choices.push(new ServiceOptionChoice(choiceData));
 		}
+		if ('defaultChoice' in data) {
+			for (const choice of this.choices) {
+				if (choice.title === data['defaultChoice']) {
+					this.selectedChoice = choice;
+					break;
+				}
+			}
+		}
 	}
 }
 
