@@ -22,14 +22,16 @@ body {
 	cursor: pointer;
 }
 
+.deselectable-card.selected {
+	cursor: pointer;
+}
+
 .selectable-card:not(.selected):hover .card-body {
-	box-shadow:inset 0 0 0 0.2rem $primary;
-	padding-bottom: 3rem;
+	box-shadow:inset 0 0 0 0.1rem $primary;
 }
 
 .selectable-card.selected:not(.disable-selected-indication) .card-body {
-	box-shadow:inset 0 0 0 0.2rem $secondary;
-	padding-bottom: 3rem;
+	box-shadow:inset 0 0 0 0.1rem $primary;
 }
 
 .cornerbox {
@@ -51,12 +53,4 @@ body {
 
 .selectable-card:not(.selected):hover .cornerbox {
 	display: block;
-}
-
-.selectable-card.selected:not(.disable-selected-indication) .cornerbox {
-	background-color: $secondary;
-}
-
-.selectable-card.selected:not(.disable-selected-indication) .cornerbox:after {
-	content: "Selected";
 }

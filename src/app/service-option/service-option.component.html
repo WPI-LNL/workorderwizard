@@ -25,10 +25,14 @@
 		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="serviceOption.selectedChoice = choice">
 			<img *ngIf="choice.imageUrl" class="card-img-top" src="{{ choice.imageUrl }}">
 			<div class="card-body">
-				<h5 class="card-title">{{ choice.title }}</h5>
+				<div class="custom-control custom-radio">
+					<input type="radio" class="custom-control-input" [checked]="serviceOption.selectedChoice === choice">
+					<label class="custom-control-label">
+						<h5 class="card-title">{{ choice.title }}</h5>
+					</label>
+				</div>
 				{{ choice.description }}
 			</div>
-			<div class="cornerbox"></div>
 		</div>
 	</div>
 </div>
