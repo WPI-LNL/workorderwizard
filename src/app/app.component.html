@@ -150,7 +150,8 @@
 					</thead>
 					<tbody>
 						<tr *ngFor="let serviceOption of event.nonzeroServiceOptions()">
-							<td>{{ serviceOption.title }}: {{ serviceOption.selectedChoice.title }}</td>
+							<td *ngIf="!serviceOption.isBoolean">{{ serviceOption.title }}: {{ serviceOption.selectedChoice.title }}</td>
+							<td *ngIf="serviceOption.isBoolean">{{ serviceOption.title }}</td>
 							<td>{{ serviceOption.selectedChoice.price }}</td>
 						</tr>
 						<tr *ngFor="let addon of event.nonzeroAddons()">

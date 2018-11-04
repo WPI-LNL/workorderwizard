@@ -4,8 +4,24 @@
 		{{ serviceOption.description }}
 	</div>
 </div>
-<div class="row mb-4">
-	<div class="col-md" *ngFor="let choice of serviceOption.choices">
+<div class="row mb-4" *ngIf="serviceOption.isBoolean">
+	<div class="col-md-4">
+		<div class="card selectable-card deselectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === serviceOption.choices[0]}" (click)="serviceOption.selectedChoice = serviceOption.selectedChoice == serviceOption.choices[0] ? none : serviceOption.choices[0]">
+			<img *ngIf="serviceOption.choices[0].imageUrl" class="card-img-top" src="{{ serviceOption.choices[0].imageUrl }}">
+			<div class="card-body">
+				<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" [checked]="serviceOption.selectedChoice === serviceOption.choices[0]">
+					<label class="custom-control-label">
+						<h5 class="card-title">{{ serviceOption.choices[0].title }}</h5>
+					</label>
+				</div>
+				{{ serviceOption.choices[0].description }}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row mb-4" *ngIf="!serviceOption.isBoolean">
+	<div class="col-md-4" *ngFor="let choice of serviceOption.choices">
 		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="serviceOption.selectedChoice = choice">
 			<img *ngIf="choice.imageUrl" class="card-img-top" src="{{ choice.imageUrl }}">
 			<div class="card-body">

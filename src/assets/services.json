@@ -49,13 +49,10 @@
 			},
 			{
 				"title": "Subwoofers",
+				"isBoolean": true,
 				"choices": [
 					{
-						"title": "No",
-						"price": 0
-					},
-					{
-						"title": "Yes",
+						"title": "Subwoofers",
 						"price": 50,
 						"description": "Lots of wub"
 					}
@@ -63,13 +60,10 @@
 			},
 			{
 				"title": "Monitors",
+				"isBoolean": true,
 				"choices": [
 					{
-						"title": "No",
-						"price": 0
-					},
-					{
-						"title": "Yes",
+						"title": "Monitors",
 						"price": 50,
 						"detailPrompt": "Please describe your monitor requirements.",
 						"description": "Your band can hear themselves"
@@ -136,31 +130,25 @@
 			},
 			{
 				"title": "Uplighting",
+				"isBoolean": true,
 				"choices": [
 					{
-						"title": "No",
-						"price": 0,
-						"value": null
-					},
-					{
-						"title": "Yes",
+						"title": "Uplighting",
 						"price": 50,
-						"description": "Prettify the room."
+						"description": "Prettify the room.",
+						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
 					}
 				]
 			},
 			{
 				"title": "Haze",
 				"description": "We own one fog machine and can rent more to suit your needs. Use of haze requires a fire watch which you must arrange and pay for.",
+				"isBoolean": true,
 				"choices": [
 					{
-						"title": "No",
-						"price": 0,
-						"value": null
-					},
-					{
-						"title": "Yes",
-						"price": 20
+						"title": "Haze",
+						"price": 20,
+						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
 					}
 				]
 			},

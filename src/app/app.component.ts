@@ -186,7 +186,11 @@ export class AppComponent implements OnInit {
 			data['services'][service.title] = {};
 			for (const serviceOption of service.serviceOptions) {
 				if (serviceOption.selectedChoice) {
-					data['services'][service.title][serviceOption.title] = serviceOption.selectedChoice.title;
+					if (serviceOption.isBoolean) {
+						data['services'][service.title][serviceOption.title] = true;
+					} else {
+						data['services'][service.title][serviceOption.title] = serviceOption.selectedChoice.title;
+					}
 				}
 			}
 			for (const addon of service.addons) {
