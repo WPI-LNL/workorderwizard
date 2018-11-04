@@ -155,21 +155,40 @@
 						"price": 20,
 						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
 					}
-				]
+				],
+				"defaultChoice": "No"
 			},
 			{
-				"title": "Truss-mounted projector",
+				"title": "Rigging",
+				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
 				"choices": [
 					{
-						"title": "No",
+						"title": "None",
 						"price": 0,
 						"value": null
 					},
 					{
-						"title": "Yes",
-						"price": 20
+						"title": "Basic",
+						"price": 60
+					},
+					{
+						"title": "Advanced",
+						"price": 120
 					}
-				]
+				],
+				"defaultChoice": "None"
+			},
+			{
+				"title": "Flown projector",
+				"isBoolean": true,
+				"choices": [
+					{
+						"title": "Truss-mounted projector",
+						"price": 20,
+						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+					}
+				],
+				"defaultChoice": "No"
 			}
 		],
 		"addons": [
