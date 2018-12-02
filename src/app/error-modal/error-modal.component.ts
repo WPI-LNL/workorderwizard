@@ -6,7 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./error-modal.component.css']
 })
 export class ErrorModalComponent implements OnInit {
-	@Input() error: string;
 
   constructor() { }
 

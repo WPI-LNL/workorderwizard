@@ -7,22 +7,24 @@
 				"choices": [
 					{
 						"title": "Small",
+						"value": "I1",
 						"price": 0,
 						"detailPrompt": "Please describe your microphone and laptop/phone input requirements.",
 						"description": "For playing music, and up to 2 microphones for announcements or speakers."
 					},
 					{
 						"title": "Medium",
+						"value": "I2",
 						"price": 50,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, laptop input, etc.",
 						"description": "Up to 8 inputs, intended for smaller scale events that have live performances, a capella shows, etc."
 					},
 					{
 						"title": "Large",
+						"value": "I3",
 						"price": 75,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, etc. If your event is a stage show with multiple acts, you will be asked for a set list via email and you only need to provide a general description here.",
-						"description": "Intended for events such as large concerts, bands, stage shows, etc.",
-						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+						"description": "Intended for events such as large concerts, bands, stage shows, etc."
 					}
 				]
 			},
@@ -32,16 +34,19 @@
 				"choices": [
 					{
 						"title": "House System",
+						"value": "O1",
 						"price": 0,
 						"description": "We will use the speakers that are permanently installed in the venue."
 					},
 					{
 						"title": "Small",
+						"value": "O2",
 						"price": 50,
 						"description": "Small speakers"
 					},
 					{
 						"title": "Large",
+						"value": "O3",
 						"price": 1000000,
 						"description": "Big speakers"
 					}
@@ -53,6 +58,7 @@
 				"choices": [
 					{
 						"title": "Subwoofers",
+						"value": "SB",
 						"price": 50,
 						"description": "Lots of wub"
 					}
@@ -65,6 +71,7 @@
 				"choices": [
 					{
 						"title": "Monitors",
+						"value": "MN",
 						"price": 50,
 						"detailPrompt": "Please describe your monitor requirements.",
 						"description": "Your band can hear themselves"
@@ -102,8 +109,7 @@
 						"title": "Advanced",
 						"price": 75,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Anything more than Basic.",
-						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+						"description": "Anything more than Basic."
 					}
 				],
 				"defaultChoice": "None"
@@ -139,8 +145,7 @@
 					{
 						"title": "Uplighting",
 						"price": 50,
-						"description": "Prettify the room.",
-						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+						"description": "Prettify the room."
 					}
 				],
 				"defaultChoice": "No"
@@ -152,8 +157,7 @@
 				"choices": [
 					{
 						"title": "Haze",
-						"price": 20,
-						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+						"price": 20
 					}
 				],
 				"defaultChoice": "No"
@@ -184,8 +188,7 @@
 				"choices": [
 					{
 						"title": "Truss-mounted projector",
-						"price": 20,
-						"imageUrl": "https://www.szbecen.com/wp-content/uploads/2017/11/blog2-2.jpg"
+						"price": 20
 					}
 				],
 				"defaultChoice": "No"

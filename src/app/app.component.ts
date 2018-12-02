@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
 
 	@ViewChild('loadingModal') loadingModal: ElementRef;
 	@ViewChild('loginRequiredModal') loginRequiredModal: ElementRef;
+	@ViewChild('submittingModal') submittingModal: ElementRef;
+	@ViewChild('submitSuccessModal') submitSuccessModal: ElementRef;
 
 	@ViewChild('orgSearch') orgSearchInput: ElementRef;
 	orgSearchVisible = true;
@@ -79,7 +81,15 @@ export class AppComponent implements OnInit {
 	}
 
 	displayLoadingModal() {
-		this.modalService.open(this.loadingModal, { size: 'sm', centered: true });
+		return this.modalService.open(this.loadingModal, { size: 'sm', centered: true });
+	}
+
+	displaySubmittingModal() {
+		return this.modalService.open(this.submittingModal, { size: 'sm', centered: true, backdrop: 'static', keyboard: false });
+	}
+
+	displaySubmitSuccessModal() {
+		return this.modalService.open(this.submitSuccessModal, { size: 'sm', centered: true, backdrop: 'static', keyboard: false });
 	}
 
 	displayOrgSearch() {
@@ -136,7 +146,7 @@ export class AppComponent implements OnInit {
 
 	loadBaseData() {
 		const appComponent = this;
-		this.http.get('http://localhost:8000/db/workorderwizard-json').subscribe(function(response) {
+		this.http.get('http://localhost:8000/db/workorderwizard-load').subscribe(function(response) {
 			appComponent.userContactInfo = response['user'];
 			const orgs = [];
 			for (const org of response['orgs']) {
@@ -181,27 +191,41 @@ export class AppComponent implements OnInit {
 		if (this.event.setupCompleteDatetime()) {
 			data['setup_complete'] = this.event.setupCompleteDatetime().toISOString();
 		}
-		data['services'] = {};
+		data['services'] = [];
+		data['extras'] = [];
 		for (const service of this.event.services) {
-			data['services'][service.title] = {};
 			for (const serviceOption of service.serviceOptions) {
-				if (serviceOption.selectedChoice) {
-					if (serviceOption.isBoolean) {
-						data['services'][service.title][serviceOption.title] = true;
-					} else {
-						data['services'][service.title][serviceOption.title] = serviceOption.selectedChoice.title;
-					}
+				// selected choice will only be added to the JSON if its value is truthy
+				if (serviceOption.selectedChoice && serviceOption.selectedChoice.value) {
+					data['services'].push({id: serviceOption.selectedChoice.value, detail: serviceOption.detail});
 				}
 			}
 			for (const addon of service.addons) {
-				data['services'][service.title][addon.title] = addon.quantity;
+				data['extras'].push({id: addon.title, quantity: addon.quantity});
 			}
 		}
-		this.http.post('http://localhost:8000/db/workorderwizard-json', data,
+		let modal = this.displaySubmittingModal();
+		const appComponent = this;
+		this.http.post('http://localhost:8000/db/workorderwizard-submit', data,
 				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {
-			console.log(response);
+			modal.close();
+			appComponent.displaySubmitSuccessModal();
+			setTimeout(function() {
+				window.location.href = 'http://localhost:8000' + response['event_url'];
+			}, 2000);
 		}, function(error) {
-			console.log(error);
+			modal.close();
+			modal = appComponent.modalService.open(ErrorModalComponent);
+			if (error.status === 0) {
+				const msg = 'Failed to submit your event. Check your internet connection and try again.';
+				modal.componentInstance.message = msg;
+			} else {
+				const msg = 'Failed to submit your event. Please wait a moment and then try again.';
+				modal.componentInstance.message = msg;
+			}
+			setTimeout(function() {
+				modal.close();
+			}, 3000);
 		});
 	}
 }

@@ -43,6 +43,7 @@ export class ServiceOptionChoice {
 export class ServiceOption {
 	title: string;
 	description: string;
+	shortname: string;
 	isBoolean: boolean;
 	choices: ServiceOptionChoice[];
 	selectedChoice: ServiceOptionChoice;

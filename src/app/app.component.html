@@ -13,7 +13,7 @@
 <!-- Modals -->
 <ng-template #loadingModal let-modal>
 	<div class="modal-body d-flex">
-		<div class="fa fa-refresh fa-spin fa-5x"></div>
+		<div><span class="fa fa-refresh fa-spin fa-5x"></span></div>
 		<div class="ml-4">Looking for last year's event&hellip;</div>
 	</div>
 	<div class="modal-footer">
@@ -24,6 +24,18 @@
 	<div class="modal-body d-flex">
 		<div class="fa fa-sign-in fa-5x"></div>
 		<div class="ml-4">Login required. Redirecting&hellip;</div>
+	</div>
+</ng-template>
+<ng-template #submittingModal let-modal>
+	<div class="modal-body d-flex">
+		<div><span class="fa fa-refresh fa-spin fa-5x"></span></div>
+		<div class="ml-4">Submitting your event. Do not press your browser's back button or leave this page.</div>
+	</div>
+</ng-template>
+<ng-template #submitSuccessModal let-modal>
+	<div class="modal-body d-flex">
+		<div class="fa fa-check-circle-o fa-5x text-success"></div>
+		<div class="ml-4">Success</div>
 	</div>
 </ng-template>
 <!-- Main content -->
