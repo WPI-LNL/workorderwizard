@@ -4,33 +4,34 @@
 		"options": [
 			{
 				"title": "Inputs",
+				"description": "Every sound event has inputs. Some examples are a microphone, an instrument such as a keyboard or electric guitar, or a phone. For most events, the number of inputs is the number of microphones. We do not count inputs from our own laptop for playing music.",
 				"choices": [
 					{
 						"title": "Small",
 						"value": "I1",
-						"price": 0,
+						"price": 50,
 						"detailPrompt": "Please describe your microphone and laptop/phone input requirements.",
-						"description": "For playing music, and up to 2 microphones for announcements or speakers."
+						"description": "Music and up to 2 inputs. Suitable for speaking events, small performances, or background music."
 					},
 					{
 						"title": "Medium",
 						"value": "I2",
-						"price": 50,
+						"price": 75,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, laptop input, etc.",
-						"description": "Up to 8 inputs, intended for smaller scale events that have live performances, a capella shows, etc."
+						"description": "Music and up to 8 inputs. Suitable for panel discussions or small performances."
 					},
 					{
 						"title": "Large",
 						"value": "I3",
-						"price": 75,
+						"price": 150,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, etc. If your event is a stage show with multiple acts, you will be asked for a set list via email and you only need to provide a general description here.",
-						"description": "Intended for events such as large concerts, bands, stage shows, etc."
+						"description": "Unlimited inputs. Suitable for large stage shows, concerts, bands, or other large events."
 					}
 				]
 			},
 			{
 				"title": "Speakers",
-				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
+				"description": "If your event needs more than two main speakers, such as for surround sound or a large concert, contact us.",
 				"choices": [
 					{
 						"title": "House System",
@@ -41,14 +42,14 @@
 					{
 						"title": "Small",
 						"value": "O2",
-						"price": 50,
-						"description": "Small speakers"
+						"price": 80,
+						"description": "Two small speakers. Suitable for speaking events, casual background music, or small event spaces."
 					},
 					{
 						"title": "Large",
 						"value": "O3",
-						"price": 1000000,
-						"description": "Big speakers"
+						"price": 120,
+						"description": "Two larger speakers. Suitable for stage shows, dances, or larger event spaces."
 					}
 				]
 			},
@@ -60,21 +61,34 @@
 						"title": "Subwoofers",
 						"value": "SB",
 						"price": 50,
-						"description": "Lots of wub"
+						"description": "Subwoofers add bass to your event's sound. Recommended for bands, stage shows, or dances. Suitable for most events involving music."
 					}
 				],
 				"defaultChoice": "No"
 			},
 			{
-				"title": "Monitors",
+				"title": "Stage Monitors",
 				"isBoolean": true,
 				"choices": [
 					{
-						"title": "Monitors",
+						"title": "Stage Monitors",
 						"value": "MN",
-						"price": 50,
+						"price": 30,
 						"detailPrompt": "Please describe your monitor requirements.",
-						"description": "Your band can hear themselves"
+						"description": "Monitors for on-stage performers. Recommended for stage shows and bands."
+					}
+				],
+				"defaultChoice": "No"
+			},
+			{
+				"title": "Area Fills",
+				"isBoolean": true,
+				"choices": [
+					{
+						"title": "Area Fills",
+						"value": "MN",
+						"price": 20,
+						"description": "Additional speakers to fill a large or oddly-shaped venue."
 					}
 				],
 				"defaultChoice": "No"
@@ -83,7 +97,7 @@
 		"addons": [
 			{
 				"title": "Wireless Microphone",
-				"description": "Gotta love batteries",
+				"description": "Wired microphones are included but there is a fee per wireless microphone.",
 				"price": 10
 			}
 		]
@@ -101,13 +115,13 @@
 					},
 					{
 						"title": "Basic",
-						"price": 50,
+						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Basic stage lighting lighting that can be dimmed. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures."
+						"description": "Basic static lighting for your stage or performance area. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures."
 					},
 					{
 						"title": "Advanced",
-						"price": 75,
+						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Anything more than Basic."
 					}

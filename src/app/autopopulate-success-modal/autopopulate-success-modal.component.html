@@ -1,0 +1,18 @@
+<div class="modal-body d-flex">
+	<div class="fa fa-check-circle-o fa-5x text-success"></div>
+	<div class="ml-4">
+		<p>We found a previous event that is similar to yours.</p>
+		<div class="card mb-3">
+			<div class="card-body">
+				<strong>{{ eventName }}</strong><br>
+				{{ eventLocation.name }}<br>
+				{{ eventStart|date:'fullDate' }}
+			</div>
+		</div>
+		<p>The work order form has been pre-filled with the details of this previous event.</p>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" (click)="modal.dismiss()">Edit work order</button>
+	<button class="btn btn-primary" (click)="modal.dismiss();skipToReview();">Review and submit</button>
+</div>

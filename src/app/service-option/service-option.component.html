@@ -9,13 +9,21 @@
 		<div class="card selectable-card deselectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === serviceOption.choices[0]}" (click)="serviceOption.selectedChoice = serviceOption.selectedChoice == serviceOption.choices[0] ? none : serviceOption.choices[0]">
 			<img *ngIf="serviceOption.choices[0].imageUrl" class="card-img-top" src="{{ serviceOption.choices[0].imageUrl }}">
 			<div class="card-body">
-				<div class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input" [checked]="serviceOption.selectedChoice === serviceOption.choices[0]">
-					<label class="custom-control-label">
-						<h5 class="card-title">{{ serviceOption.choices[0].title }}</h5>
-					</label>
+				<div class="clearfix">
+					<div class="custom-control custom-checkbox pull-left">
+						<input type="checkbox" class="custom-control-input" [checked]="serviceOption.selectedChoice === serviceOption.choices[0]">
+						<label class="custom-control-label">
+							<h5 class="card-title">{{ serviceOption.choices[0].title }}</h5>
+						</label>
+					</div>
+					<div class="pull-right">
+						<span *ngIf="serviceOption.choices[0].price === 0">&ndash;</span>
+						<span *ngIf="serviceOption.choices[0].price > 0">${{ serviceOption.choices[0].price }}</span>
+					</div>
 				</div>
-				{{ serviceOption.choices[0].description }}
+				<div>
+					{{ serviceOption.choices[0].description }}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -25,13 +33,21 @@
 		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="serviceOption.selectedChoice = choice">
 			<img *ngIf="choice.imageUrl" class="card-img-top" src="{{ choice.imageUrl }}">
 			<div class="card-body">
-				<div class="custom-control custom-radio">
-					<input type="radio" class="custom-control-input" [checked]="serviceOption.selectedChoice === choice">
-					<label class="custom-control-label">
-						<h5 class="card-title">{{ choice.title }}</h5>
-					</label>
+				<div class="clearfix">
+					<div class="custom-control custom-radio pull-left">
+						<input type="radio" class="custom-control-input" [checked]="serviceOption.selectedChoice === choice">
+						<label class="custom-control-label">
+							<h5 class="card-title">{{ choice.title }}</h5>
+						</label>
+					</div>
+					<div class="pull-right">
+						<span *ngIf="choice.price === 0">&ndash;</span>
+						<span *ngIf="choice.price > 0">${{ choice.price }}</span>
+					</div>
 				</div>
-				{{ choice.description }}
+				<div>
+					{{ choice.description }}
+				</div>
 			</div>
 		</div>
 	</div>

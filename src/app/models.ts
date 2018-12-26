@@ -43,7 +43,6 @@ export class ServiceOptionChoice {
 export class ServiceOption {
 	title: string;
 	description: string;
-	shortname: string;
 	isBoolean: boolean;
 	choices: ServiceOptionChoice[];
 	selectedChoice: ServiceOptionChoice;
@@ -122,23 +121,59 @@ export class Event {
 	name: string;
 	description: string;
 	location: Location;
-	startDate: object;
-	startTime: object;
+	private _setupCompleteDate: object;
+	private _setupCompleteTime: object;
+	private _startDate: object;
+	private _startTime: object;
 	endDate: object;
 	endTime: object;
-	setupCompleteDate: object;
-	setupCompleteTime: object;
 	services: Service[];
 
-	setupCompleteDatetime() {
+	get setupCompleteDate() {
+		return this._setupCompleteDate;
+	}
+
+	set setupCompleteDate(value) {
+		this._setupCompleteDate = value;
+		this.autofill_datetimes();
+	}
+
+	get setupCompleteTime() {
+		return this._setupCompleteTime;
+	}
+
+	set setupCompleteTime(value) {
+		this._setupCompleteTime = value;
+		this.autofill_datetimes();
+	}
+
+	get startDate() {
+		return this._startDate;
+	}
+
+	set startDate(value) {
+		this._startDate = value;
+		this.autofill_datetimes();
+	}
+
+	get startTime() {
+		return this._startTime;
+	}
+
+	set startTime(value) {
+		this._startTime = value;
+		this.autofill_datetimes();
+	}
+
+	get setupCompleteDatetime() {
 		return this.getDatetime(this.setupCompleteDate, this.setupCompleteTime);
 	}
 
-	startDatetime() {
+	get startDatetime() {
 		return this.getDatetime(this.startDate, this.startTime);
 	}
 
-	endDatetime() {
+	get endDatetime() {
 		return this.getDatetime(this.endDate, this.endTime);
 	}
 
@@ -150,6 +185,21 @@ export class Event {
 			return new Date(date['year'], date['month'], date['day']);
 		}
 		return null;
+	}
+
+	autofill_datetimes() {
+		if (this.setupCompleteDate && !this.startDate) {
+			this.startDate = this.setupCompleteDate;
+		}
+		if (this.setupCompleteTime && !this.startTime) {
+			this.startTime = this.setupCompleteTime
+		}
+		if (this.startDate && !this.endDate) {
+			this.endDate = this.startDate;
+		}
+		if (this.startTime && !this.endTime) {
+			this.endTime = this.startTime
+		}
 	}
 
 	constructor() {

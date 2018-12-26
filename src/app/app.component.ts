@@ -2,9 +2,11 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { DB_URL } from './constants';
 import { Event, Location, Organization, ServiceOption, ServiceOptionChoice } from './models';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { WizardProgressStepComponent } from './wizard-progress-step/wizard-progress-step.component';
+import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/autopopulate-success-modal.component';
 
 @Component({
 	selector: 'app-root',
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
 	event: Event;
 	userContactInfo: object;
 
-	@ViewChild('loadingModal') loadingModal: ElementRef;
+	@ViewChild('autopopulatingModal') autopopulatingModal: ElementRef;
 	@ViewChild('loginRequiredModal') loginRequiredModal: ElementRef;
 	@ViewChild('submittingModal') submittingModal: ElementRef;
 	@ViewChild('submitSuccessModal') submitSuccessModal: ElementRef;
@@ -80,16 +82,16 @@ export class AppComponent implements OnInit {
 		this.activeStep = step;
 	}
 
-	displayLoadingModal() {
-		return this.modalService.open(this.loadingModal, { size: 'sm', centered: true });
+	displayAutopopulatingModal() {
+		return this.modalService.open(this.autopopulatingModal, {size: 'sm', centered: true, backdrop: 'static', keyboard: false});
 	}
 
 	displaySubmittingModal() {
-		return this.modalService.open(this.submittingModal, { size: 'sm', centered: true, backdrop: 'static', keyboard: false });
+		return this.modalService.open(this.submittingModal, {size: 'sm', centered: true, backdrop: 'static', keyboard: false});
 	}
 
 	displaySubmitSuccessModal() {
-		return this.modalService.open(this.submitSuccessModal, { size: 'sm', centered: true, backdrop: 'static', keyboard: false });
+		return this.modalService.open(this.submitSuccessModal, {size: 'sm', centered: true, backdrop: 'static', keyboard: false});
 	}
 
 	displayOrgSearch() {
@@ -114,9 +116,7 @@ export class AppComponent implements OnInit {
 		if (value.length < 2) {
 			this.orgSearchResults = this.defaultOrgSearchResults;
 		} else {
-			console.log(this.orgs);
 			this.orgSearchResults = this.orgs.filter(org => org.name.toLowerCase().includes(value.toLowerCase()));
-			console.log(this.orgSearchResults);
 		}
 	}
 
@@ -146,7 +146,7 @@ export class AppComponent implements OnInit {
 
 	loadBaseData() {
 		const appComponent = this;
-		this.http.get('http://localhost:8000/db/workorderwizard-load').subscribe(function(response) {
+		this.http.get(DB_URL + '/db/workorderwizard-load').subscribe(function(response) {
 			appComponent.userContactInfo = response['user'];
 			const orgs = [];
 			for (const org of response['orgs']) {
@@ -164,12 +164,77 @@ export class AppComponent implements OnInit {
 		}, function(error) {
 			if (error.status === 401) {
 				appComponent.modalService.open(appComponent.loginRequiredModal, {backdrop: 'static', keyboard: false});
-				window.location.href = 'http://localhost:8000/login/?next=/me';
+				window.location.href = DB_URL + '/login/?force_cas=true&next=/workorder-wizard';
 			} else {
 				const msg = 'Application data could not be retrieved from the server. Please try refreshing the page.';
 				appComponent.modalService.open(ErrorModalComponent, {backdrop: 'static', keyboard: false}).componentInstance.message = msg;
 			}
 		});
+	}
+
+	autopopulate() {
+		const data = {};
+		if (this.selectedOrg) {
+			data['org'] = this.selectedOrg.id;
+		}
+		data['event_name'] = this.event.name;
+		data['description'] = this.event.description;
+		if (this.event.location) {
+			data['location'] = this.event.location.id;
+		}
+		if (this.event.startDatetime) {
+			data['start'] = this.event.startDatetime.toISOString();
+		}
+		if (this.event.endDatetime) {
+			data['end'] = this.event.endDatetime.toISOString();
+		}
+		if (this.event.setupCompleteDatetime) {
+			data['setup_complete'] = this.event.setupCompleteDatetime.toISOString();
+		}
+		let modal = this.displayAutopopulatingModal();
+		const appComponent = this;
+		this.http.post(DB_URL + '/db/workorderwizard-autopopulate', data,
+				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {
+			modal.close();
+			if (response) {
+				modal = appComponent.modalService.open(AutopopulateSuccessModalComponent);
+				modal.componentInstance.skipToReview = () => appComponent.switchToStep('Review');
+				modal.componentInstance.eventName = response['event_name'];
+				modal.componentInstance.eventLocation = appComponent.locations.find(loc => loc.id === response['location']);
+				modal.componentInstance.eventStart = new Date(response['start']);
+				for (const serviceData of response['services']) {
+					appComponent.autopopulateStep(serviceData['id'], serviceData['detail']);
+				}
+			}
+		}, function(error) {
+			modal.close();
+			modal = appComponent.modalService.open(ErrorModalComponent);
+			if (error.status === 0) {
+				const msg = 'Cannot contact the server. Check your internet connection and try again.';
+				modal.componentInstance.message = msg;
+			} else {
+				const msg = 'Failed to search previous events. Please wait a moment and then try again.';
+				modal.componentInstance.message = msg;
+			}
+			setTimeout(function() {
+				modal.close();
+			}, 4000);
+		});
+	}
+
+	private autopopulateStep(serviceOptionChoiceId, detail) {
+		for (const service of this.event.services) {
+			for (const serviceOption of service.serviceOptions) {
+				for (const serviceOptionChoice of serviceOption.choices) {
+					if (serviceOptionChoice.value === serviceOptionChoiceId) {
+						serviceOption.selectedChoice = serviceOptionChoice;
+						serviceOption.detail = detail;
+						return;
+					}
+				}
+			}
+		}
+		console.warn(`Unknown service ID ${serviceOptionChoiceId} encountered during autopopulation.`)
 	}
 
 	submit() {
@@ -182,14 +247,14 @@ export class AppComponent implements OnInit {
 		if (this.event.location) {
 			data['location'] = this.event.location.id;
 		}
-		if (this.event.startDatetime()) {
-			data['start'] = this.event.startDatetime().toISOString();
+		if (this.event.startDatetime) {
+			data['start'] = this.event.startDatetime.toISOString();
 		}
-		if (this.event.endDatetime()) {
-			data['end'] = this.event.endDatetime().toISOString();
+		if (this.event.endDatetime) {
+			data['end'] = this.event.endDatetime.toISOString();
 		}
-		if (this.event.setupCompleteDatetime()) {
-			data['setup_complete'] = this.event.setupCompleteDatetime().toISOString();
+		if (this.event.setupCompleteDatetime) {
+			data['setup_complete'] = this.event.setupCompleteDatetime.toISOString();
 		}
 		data['services'] = [];
 		data['extras'] = [];
@@ -206,12 +271,12 @@ export class AppComponent implements OnInit {
 		}
 		let modal = this.displaySubmittingModal();
 		const appComponent = this;
-		this.http.post('http://localhost:8000/db/workorderwizard-submit', data,
+		this.http.post(DB_URL + '/db/workorderwizard-submit', data,
 				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {
 			modal.close();
 			appComponent.displaySubmitSuccessModal();
 			setTimeout(function() {
-				window.location.href = 'http://localhost:8000' + response['event_url'];
+				window.location.href = DB_URL + response['event_url'];
 			}, 2000);
 		}, function(error) {
 			modal.close();

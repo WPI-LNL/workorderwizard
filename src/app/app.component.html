@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarContent" aria-label="Toggle navigation">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbarContent" [ngbCollapse]="navbarCollapsed">
@@ -11,19 +11,16 @@
 	</div>
 </nav>
 <!-- Modals -->
-<ng-template #loadingModal let-modal>
-	<div class="modal-body d-flex">
-		<div><span class="fa fa-refresh fa-spin fa-5x"></span></div>
-		<div class="ml-4">Looking for last year's event&hellip;</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-danger">Cancel</button>
-	</div>
-</ng-template>
 <ng-template #loginRequiredModal let-modal>
 	<div class="modal-body d-flex">
 		<div class="fa fa-sign-in fa-5x"></div>
 		<div class="ml-4">Login required. Redirecting&hellip;</div>
+	</div>
+</ng-template>
+<ng-template #autopopulatingModal let-modal>
+	<div class="modal-body d-flex">
+		<div><span class="fa fa-refresh fa-spin fa-5x"></span></div>
+		<div class="ml-4">Looking for last year's event&hellip;</div>
 	</div>
 </ng-template>
 <ng-template #submittingModal let-modal>
@@ -43,7 +40,7 @@
 	<!-- Welcome -->
 	<div class="row" *ngIf="activeStep === 'Welcome'">
 		<div class="col">
-			<h1>Welcome to Lens and Lights' new work order form!</h1>
+			<h1>Testing!</h1>
 			<p>Please note that, as before, events submitted with less than 2 weeks' notice are considered late and will incur a late fee.</p>
 			<button (click)="advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
 		</div>
@@ -118,8 +115,7 @@
 				<label for="eventDescription">Event Description</label>
 				<textarea [(ngModel)]="event.description" class="form-control" id="eventDescription" aria-describedby="eventDescriptionHelp"></textarea>
 				<small id="eventDescriptionHelp" class="form-text text-muted">
-					Please use this space to provide general information about your event.
-					Specific requirements for the Sound/Lights/Projection portion of your event such as "We need 3 wireless handheld microphones." will be asked for on a later page.
+					Please use this space to provide general information about your event such as the schedule, theme, etc.
 				</small>
 			</div>
 		</div>
@@ -143,7 +139,7 @@
 				</div>
 			</div>
 		</div>
-		<button (click)="advanceStep()" [disabled]="!isEventDetailsComplete()" ngbTooltip="All fields are required" placement="top" [disableTooltip]="isEventDetailsComplete()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
+		<button (click)="advanceStep();autopopulate();" [disabled]="!isEventDetailsComplete()" ngbTooltip="All fields are required" placement="top" [disableTooltip]="isEventDetailsComplete()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
 	</div>
 	<!-- /Event Details -->
 	<!-- Services -->
@@ -259,12 +255,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let serviceOption of service.serviceOptions">
+								<tr *ngFor="let serviceOption of service.serviceOptions" [hidden]="!serviceOption.selectedChoice || serviceOption.selectedChoice.value === null">
 									<td>{{ serviceOption.title }}:{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.title : 'N/A' }}</td>
 									<td>{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.price : '' }}</td>
 									<td>{{ serviceOption.detail }}</td>
 								</tr>
-								<tr *ngFor="let addon of service.addons">
+								<tr *ngFor="let addon of service.addons" [hidden]="!addon.quantity">
 									<td>{{ addon.title }} x {{ addon.quantity }}</td>
 									<td>{{ addon.quantity > 0 ? addon.price * addon.quantity : '' }}</td>
 									<td></td>

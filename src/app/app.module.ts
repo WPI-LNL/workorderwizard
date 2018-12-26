@@ -12,6 +12,7 @@ import { ServiceOptionComponent } from './service-option/service-option.componen
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { ServiceComponent } from './service/service.component';
 import { AddonComponent } from './addon/addon.component';
+import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/autopopulate-success-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AddonComponent } from './addon/addon.component';
     ServiceOptionComponent,
     ErrorModalComponent,
     ServiceComponent,
-    AddonComponent
+    AddonComponent,
+    AutopopulateSuccessModalComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,6 @@ import { AddonComponent } from './addon/addon.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-	entryComponents: [ErrorModalComponent]
+	entryComponents: [ErrorModalComponent, AutopopulateSuccessModalComponent]
 })
 export class AppModule { }
