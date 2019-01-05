@@ -3,7 +3,7 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@an
 @Component({
 	selector: 'app-wizard-progress-step',
 	templateUrl: './wizard-progress-step.component.html',
-	styleUrls: ['./wizard-progress-step.component.css']
+	styleUrls: ['./wizard-progress-step.component.scss']
 })
 export class WizardProgressStepComponent implements OnInit {
 	@Input() title: string;

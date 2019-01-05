@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+app-wizard-progress-step {
+	color: $lnl-yellow;
+}
+
+.nav-pills .nav-link {
+	color: $lnl-yellow;
+}
+
+.nav-pills .nav-link.active {
+	color: black;
+	background-color: $lnl-yellow;
+}
+
+app-service:before {
+	content: "";
+	display: block;
+	height: 4rem;
+	margin-top: -4rem;
+}

@@ -209,8 +209,10 @@ export class Event {
 			for (const serviceOptionJson of serviceJson['options']) {
 				service.serviceOptions.push(new ServiceOption(serviceOptionJson));
 			}
-			for (const addonJson of serviceJson['addons']) {
-				service.addons.push(new Addon(addonJson));
+			if ('addons' in serviceJson) {
+				for (const addonJson of serviceJson['addons']) {
+					service.addons.push(new Addon(addonJson));
+				}
 			}
 			this.services.push(service);
 		}

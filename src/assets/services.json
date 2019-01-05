@@ -215,5 +215,22 @@
 				"price": 10
 			}
 		]
+	},
+	{
+		"title": "Other",
+		"options": [
+			{
+				"title": "Power Distribution",
+				"isBoolean": true,
+				"choices": [
+					{
+						"title": "Power Distribution",
+						"price": 40,
+						"description": "Power your pizza warmers or something."
+					}
+				],
+				"defaultChoice": "No"
+			}
+		]
 	}
 ]

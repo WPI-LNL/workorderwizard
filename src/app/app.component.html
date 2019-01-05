@@ -58,7 +58,6 @@
 						<span *ngIf="userContactInfo.phone">{{ userContactInfo.phone }}<br></span>
 						<span *ngIf="userContactInfo.address">{{ userContactInfo.address }}</span>
 					</p>
-					<button class="btn btn-primary">Edit Contact Info</button>
 				</div>
 			</div>
 			<div *ngIf="!userContactInfo" class="fa fa-refresh fa-spin fa-4x w-100 text-center"></div>
@@ -145,7 +144,14 @@
 	<!-- Services -->
 	<div class="row" *ngIf="activeStep === 'Services'">
 		<div class="col-lg-9 col-lg-push-3">
-			<app-service *ngFor="let service of event.services" [service]="service"></app-service>
+			<nav id="services-navbar" class="sticky-top mb-3 navbar navbar-dark bg-dark">
+				<ul class="nav nav-pills">
+					<li *ngFor="let service of event.services" class="nav-item">
+						<a class="nav-link" [href]="'#' + service.title.toLowerCase()">{{ service.title }}</a>
+					</li>
+				</ul>
+			</nav>
+			<app-service *ngFor="let service of event.services" [id]="service.title.toLowerCase()" [service]="service"></app-service>
 		</div>
 		<div class="col-lg-3">
 			<div class="sticky-top">

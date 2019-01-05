@@ -1,11 +1,13 @@
+@import "../../variables.scss";
+
 :host {padding: 0; position: relative;}
 .step-title {font-size: 16px; margin-bottom: 5px;}
 :host.complete .step-title {cursor: pointer;}
-.step-dot {position: absolute; width: 30px; height: 30px; display: block; background: #ffe303; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;}
+.step-dot {position: absolute; width: 30px; height: 30px; display: block; background: $lnl-yellow; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;}
 :host.complete .step-dot {cursor: pointer;} 
-.step-dot:after {content: ' '; width: 14px; height: 14px; background: #fff6ad; border-radius: 50px; position: absolute; top: 8px; left: 8px; } 
+.step-dot:after {content: ' '; width: 14px; height: 14px; background: $lnl-yellow-accent; border-radius: 50px; position: absolute; top: 8px; left: 8px; }
 .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;}
-.progress > .progress-bar {width:0px; box-shadow: none; background: #ffe303;}
+.progress > .progress-bar {width:0px; box-shadow: none; background: $lnl-yellow;}
 :host.complete > .progress > .progress-bar {width:100%;}
 :host.active > .progress > .progress-bar {width:50%;}
 :host:first-child.active > .progress > .progress-bar {width:0%;}

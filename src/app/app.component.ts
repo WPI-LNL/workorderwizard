@@ -11,7 +11,7 @@ import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css']
+	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
 	STEPS = ['Client', 'Event Details', 'Services', 'Review'];
