@@ -117,13 +117,15 @@
 						"title": "Basic",
 						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Basic static lighting for your stage or performance area. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures."
+						"description": "Basic static lighting for your stage or performance area. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures.",
+						"imageUrl": "assets/images/stage_basic.jpg"
 					},
 					{
 						"title": "Advanced",
 						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Anything more than Basic."
+						"description": "Anything more than Basic.",
+						"imageUrl": "assets/images/stage_advanced.jpg"
 					}
 				],
 				"defaultChoice": "None"
@@ -141,13 +143,15 @@
 						"title": "Basic",
 						"price": 50,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc."
+						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc.",
+						"imageUrl": "assets/images/area_basic.jpg"
 					},
 					{
 						"title": "Advanced",
 						"price": 75,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Anything more than Basic."
+						"description": "Anything more than Basic.",
+						"imageUrl": "assets/images/area_advanced.jpg"
 					}
 				],
 				"defaultChoice": "None"
@@ -159,7 +163,8 @@
 					{
 						"title": "Uplighting",
 						"price": 50,
-						"description": "Prettify the room."
+						"description": "Prettify the room.",
+						"imageUrl": "assets/images/uplighting.jpg"
 					}
 				],
 				"defaultChoice": "No"
@@ -171,7 +176,8 @@
 				"choices": [
 					{
 						"title": "Haze",
-						"price": 20
+						"price": 20,
+						"imageUrl": "assets/images/haze.jpg"
 					}
 				],
 				"defaultChoice": "No"
@@ -187,11 +193,13 @@
 					},
 					{
 						"title": "Basic",
-						"price": 60
+						"price": 60,
+						"imageUrl": "assets/images/rigging_basic.jpg"
 					},
 					{
 						"title": "Advanced",
-						"price": 120
+						"price": 120,
+						"imageUrl": "assets/images/rigging_advanced.jpg"
 					}
 				],
 				"defaultChoice": "None"
@@ -202,7 +210,8 @@
 				"choices": [
 					{
 						"title": "Truss-mounted projector",
-						"price": 20
+						"price": 20,
+						"imageUrl": "assets/images/flown_projector.jpg"
 					}
 				],
 				"defaultChoice": "No"
