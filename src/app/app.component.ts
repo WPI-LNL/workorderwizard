@@ -266,7 +266,9 @@ export class AppComponent implements OnInit {
 				}
 			}
 			for (const addon of service.addons) {
-				data['extras'].push({id: addon.title, quantity: addon.quantity});
+				if (addon.quantity > 0) {
+					data['extras'].push({id: addon.title, quantity: addon.quantity});
+				}
 			}
 		}
 		let modal = this.displaySubmittingModal();
