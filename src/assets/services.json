@@ -72,7 +72,7 @@
 				"choices": [
 					{
 						"title": "Stage Monitors",
-						"value": "MN",
+						"value": "SM",
 						"price": 30,
 						"detailPrompt": "Please describe your monitor requirements.",
 						"description": "Monitors for on-stage performers. Recommended for stage shows and bands."
@@ -86,7 +86,7 @@
 				"choices": [
 					{
 						"title": "Area Fills",
-						"value": "MN",
+						"value": "AF",
 						"price": 20,
 						"description": "Additional speakers to fill a large or oddly-shaped venue."
 					}
@@ -110,11 +110,12 @@
 				"choices": [
 					{
 						"title": "None",
-						"price": 0,
-						"value": null
+						"value": null,
+						"price": 0
 					},
 					{
 						"title": "Basic",
+						"value": "W1",
 						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Basic static lighting for your stage or performance area. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures.",
@@ -122,6 +123,7 @@
 					},
 					{
 						"title": "Advanced",
+						"value": "W2",
 						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Anything more than Basic.",
@@ -136,11 +138,12 @@
 				"choices": [
 					{
 						"title": "None",
-						"price": 0,
-						"value": null
+						"value": null,
+						"price": 0
 					},
 					{
 						"title": "Basic",
+						"value": "A1",
 						"price": 50,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc.",
@@ -148,6 +151,7 @@
 					},
 					{
 						"title": "Advanced",
+						"value": "A2",
 						"price": 75,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Anything more than Basic.",
@@ -162,6 +166,7 @@
 				"choices": [
 					{
 						"title": "Uplighting",
+						"value": "UP",
 						"price": 50,
 						"description": "Prettify the room.",
 						"imageUrl": "assets/images/uplighting.jpg"
@@ -176,6 +181,7 @@
 				"choices": [
 					{
 						"title": "Haze",
+						"value": "HZ",
 						"price": 20,
 						"imageUrl": "assets/images/haze.jpg"
 					}
@@ -188,16 +194,18 @@
 				"choices": [
 					{
 						"title": "None",
-						"price": 0,
-						"value": null
+						"value": null,
+						"price": 0
 					},
 					{
 						"title": "Basic",
+						"value": "R1",
 						"price": 60,
 						"imageUrl": "assets/images/rigging_basic.jpg"
 					},
 					{
 						"title": "Advanced",
+						"value": "R2",
 						"price": 120,
 						"imageUrl": "assets/images/rigging_advanced.jpg"
 					}
@@ -210,6 +218,7 @@
 				"choices": [
 					{
 						"title": "Truss-mounted projector",
+						"value": "RP",
 						"price": 20,
 						"imageUrl": "assets/images/flown_projector.jpg"
 					}
@@ -234,6 +243,7 @@
 				"choices": [
 					{
 						"title": "Power Distribution",
+						"value": "PD",
 						"price": 40,
 						"description": "Power your pizza warmers or something."
 					}
