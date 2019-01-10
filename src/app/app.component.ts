@@ -45,7 +45,9 @@ export class AppComponent implements OnInit {
 	}
 
 	stepClick($event) {
-		this.switchToStep($event.title);
+		if (!$event.disabled) {
+			this.switchToStep($event.title);
+		}
 	}
 
 	advanceStep() {
