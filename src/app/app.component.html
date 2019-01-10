@@ -231,15 +231,15 @@
 						</tr>
 						<tr>
 							<th scope="row">Setup complete</th>
-							<td>{{ event.setupCompleteDatetime() ? event.setupCompleteDatetime().toLocaleString() : '' }}</td>
+							<td>{{ event.setupCompleteDatetime ? event.setupCompleteDatetime.toLocaleString() : '' }}</td>
 						</tr>
 						<tr>
 							<th scope="row">Start</th>
-							<td>{{ event.startDatetime() ? event.startDatetime().toLocaleString() : '' }}</td>
+							<td>{{ event.startDatetime ? event.startDatetime.toLocaleString() : '' }}</td>
 						</tr>
 						<tr>
 							<th scope="row">End</th>
-							<td>{{ event.endDatetime() ? event.endDatetime().toLocaleString() : '' }}</td>
+							<td>{{ event.endDatetime ? event.endDatetime.toLocaleString() : '' }}</td>
 						</tr>
 						<tr>
 							<th scope="row">Description</th>
