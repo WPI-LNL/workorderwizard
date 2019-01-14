@@ -3,5 +3,8 @@
 		<h1 class="text-center">{{ service.title }}</h1>
 	</div>
 </div>
-<app-service-option *ngFor="let serviceOption of service.serviceOptions" [serviceOption]="serviceOption"></app-service-option>
+<div *ngFor="let item of serviceOptions">
+	<app-service-option *ngIf="item.constructor.name !== 'Array'" [serviceOption]="item" [location]="location" (doValidate)="doValidate.emit($event)"></app-service-option>
+	<app-multi-service-option *ngIf="item.constructor.name === 'Array'" [serviceOptions]="item" [location]="location" (doValidate)="doValidate.emit($event)"></app-multi-service-option>
+</div>
 <app-addon *ngFor="let addon of service.addons" [addon]="addon"></app-addon>

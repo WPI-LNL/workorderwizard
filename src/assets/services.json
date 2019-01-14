@@ -8,21 +8,21 @@
 				"choices": [
 					{
 						"title": "Small",
-						"value": "I1",
+						"id": "I1",
 						"price": 50,
 						"detailPrompt": "Please describe your microphone and laptop/phone input requirements.",
 						"description": "Music and up to 2 inputs. Suitable for speaking events, small performances, or background music."
 					},
 					{
 						"title": "Medium",
-						"value": "I2",
+						"id": "I2",
 						"price": 75,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, laptop input, etc.",
 						"description": "Music and up to 8 inputs. Suitable for panel discussions or small performances."
 					},
 					{
 						"title": "Large",
-						"value": "I3",
+						"id": "I3",
 						"price": 150,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, etc. If your event is a stage show with multiple acts, you will be asked for a set list via email and you only need to provide a general description here.",
 						"description": "Unlimited inputs. Suitable for large stage shows, concerts, bands, or other large events."
@@ -35,36 +35,36 @@
 				"choices": [
 					{
 						"title": "House System",
-						"value": "O1",
+						"id": "O1",
 						"price": 0,
 						"description": "We will use the speakers that are permanently installed in the venue."
 					},
 					{
 						"title": "Small",
-						"value": "O2",
+						"id": "O2",
 						"price": 80,
 						"description": "Two small speakers. Suitable for speaking events, casual background music, or small event spaces."
 					},
 					{
 						"title": "Large",
-						"value": "O3",
+						"id": "O3",
 						"price": 120,
 						"description": "Two larger speakers. Suitable for stage shows, dances, or larger event spaces."
 					}
 				]
 			},
 			{
+				"categoryTitle": "Additional Speakers",
 				"title": "Subwoofers",
 				"isBoolean": true,
 				"choices": [
 					{
 						"title": "Subwoofers",
-						"value": "SB",
+						"id": "SB",
 						"price": 50,
 						"description": "Subwoofers add bass to your event's sound. Recommended for bands, stage shows, or dances. Suitable for most events involving music."
 					}
-				],
-				"defaultChoice": "No"
+				]
 			},
 			{
 				"title": "Stage Monitors",
@@ -72,13 +72,12 @@
 				"choices": [
 					{
 						"title": "Stage Monitors",
-						"value": "SM",
+						"id": "OM",
 						"price": 30,
 						"detailPrompt": "Please describe your monitor requirements.",
 						"description": "Monitors for on-stage performers. Recommended for stage shows and bands."
 					}
-				],
-				"defaultChoice": "No"
+				]
 			},
 			{
 				"title": "Area Fills",
@@ -86,12 +85,15 @@
 				"choices": [
 					{
 						"title": "Area Fills",
-						"value": "AF",
+						"id": "AF",
 						"price": 20,
-						"description": "Additional speakers to fill a large or oddly-shaped venue."
+						"detailPrompt": "Please describe your area fills requirements.",
+						"description": "Additional speakers to fill a large or oddly-shaped venue.",
+						"dependencies": [
+							["O1", "O2", "O3"]
+						]
 					}
-				],
-				"defaultChoice": "No"
+				]
 			}
 		],
 		"addons": [
@@ -110,24 +112,51 @@
 				"choices": [
 					{
 						"title": "None",
-						"value": null,
+						"id": null,
 						"price": 0
 					},
 					{
 						"title": "Basic",
-						"value": "W1",
+						"id": "W1",
 						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Basic static lighting for your stage or performance area. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures.",
-						"imageUrl": "assets/images/stage_basic.jpg"
+						"imageUrl": "assets/images/stage_basic.jpg",
+						"locationBlacklist": [
+							"Court Floor"
+						]
 					},
 					{
 						"title": "Advanced",
-						"value": "W2",
+						"id": "W2",
 						"price": 99999,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Anything more than Basic.",
-						"imageUrl": "assets/images/stage_advanced.jpg"
+						"imageUrl": "assets/images/stage_advanced.jpg",
+						"locationWhitelist": [
+							"Alden Hall",
+							"Court Floor",
+							"Odeum A",
+							"Odeum B",
+							"Odeum C",
+							"Odeum All",
+							"Odeum A&B",
+							"Odeum B&C",
+							"Odeum All (Rain Location:Harrington)",
+							"Riley Commons",
+							"Courts All",
+							"Courts Hardwood",
+							"Courts Mondo",
+							"Quad (Rain Location: Alden)",
+							"Quad (Rain Location: Campus Center)",
+							"Quad (Rain Location: CANCEL EVENT)",
+							"Quad (Rain Location: Harrington)",
+							"Quad (Rain Location: Rec)",
+							"Quad (Rain Location: Riley Commons)",
+							"Quad (Rain Location: Wedge)",
+							"Quad Tent",
+							"[NOT LISTED]"
+						]
 					}
 				],
 				"defaultChoice": "None"
@@ -138,12 +167,12 @@
 				"choices": [
 					{
 						"title": "None",
-						"value": null,
+						"id": null,
 						"price": 0
 					},
 					{
 						"title": "Basic",
-						"value": "A1",
+						"id": "A1",
 						"price": 50,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc.",
@@ -151,28 +180,52 @@
 					},
 					{
 						"title": "Advanced",
-						"value": "A2",
+						"id": "A2",
 						"price": 75,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Anything more than Basic.",
-						"imageUrl": "assets/images/area_advanced.jpg"
+						"imageUrl": "assets/images/area_advanced.jpg",
+						"locationWhitelist": [
+							"Alden Hall",
+							"Court Floor",
+							"Odeum A",
+							"Odeum B",
+							"Odeum C",
+							"Odeum All",
+							"Odeum A&B",
+							"Odeum B&C",
+							"Odeum All (Rain Location:Harrington)",
+							"Riley Commons",
+							"Courts All",
+							"Courts Hardwood",
+							"Courts Mondo",
+							"Quad (Rain Location: Alden)",
+							"Quad (Rain Location: Campus Center)",
+							"Quad (Rain Location: CANCEL EVENT)",
+							"Quad (Rain Location: Harrington)",
+							"Quad (Rain Location: Rec)",
+							"Quad (Rain Location: Riley Commons)",
+							"Quad (Rain Location: Wedge)",
+							"Quad Tent",
+							"[NOT LISTED]"
+						]
 					}
 				],
 				"defaultChoice": "None"
 			},
 			{
+				"categoryTitle": "Other",
 				"title": "Uplighting",
 				"isBoolean": true,
 				"choices": [
 					{
 						"title": "Uplighting",
-						"value": "UP",
+						"id": "UP",
 						"price": 50,
 						"description": "Prettify the room.",
 						"imageUrl": "assets/images/uplighting.jpg"
 					}
-				],
-				"defaultChoice": "No"
+				]
 			},
 			{
 				"title": "Haze",
@@ -181,36 +234,11 @@
 				"choices": [
 					{
 						"title": "Haze",
-						"value": "HZ",
+						"id": "HZ",
 						"price": 20,
 						"imageUrl": "assets/images/haze.jpg"
 					}
-				],
-				"defaultChoice": "No"
-			},
-			{
-				"title": "Rigging",
-				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
-				"choices": [
-					{
-						"title": "None",
-						"value": null,
-						"price": 0
-					},
-					{
-						"title": "Basic",
-						"value": "R1",
-						"price": 60,
-						"imageUrl": "assets/images/rigging_basic.jpg"
-					},
-					{
-						"title": "Advanced",
-						"value": "R2",
-						"price": 120,
-						"imageUrl": "assets/images/rigging_advanced.jpg"
-					}
-				],
-				"defaultChoice": "None"
+				]
 			},
 			{
 				"title": "Flown projector",
@@ -218,12 +246,83 @@
 				"choices": [
 					{
 						"title": "Truss-mounted projector",
-						"value": "RP",
+						"id": "RP",
 						"price": 20,
-						"imageUrl": "assets/images/flown_projector.jpg"
+						"imageUrl": "assets/images/flown_projector.jpg",
+						"dependencies": [
+							["R1", "R2"]
+						]
+					}
+				]
+			},
+			{
+				"title": "Rigging",
+				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
+				"choices": [
+					{
+						"title": "None",
+						"id": null,
+						"price": 0
+					},
+					{
+						"title": "Basic",
+						"id": "R1",
+						"price": 60,
+						"imageUrl": "assets/images/rigging_basic.jpg",
+						"locationWhitelist": [
+							"Alden Hall",
+							"Court Floor",
+							"Odeum A",
+							"Odeum B",
+							"Odeum C",
+							"Odeum All",
+							"Odeum A&B",
+							"Odeum B&C",
+							"Odeum All (Rain Location:Harrington)",
+							"Riley Commons",
+							"Courts All",
+							"Courts Hardwood",
+							"Courts Mondo",
+							"Quad (Rain Location: Alden)",
+							"Quad (Rain Location: Campus Center)",
+							"Quad (Rain Location: CANCEL EVENT)",
+							"Quad (Rain Location: Harrington)",
+							"Quad (Rain Location: Rec)",
+							"Quad (Rain Location: Riley Commons)",
+							"Quad (Rain Location: Wedge)",
+							"Quad Tent",
+							"[NOT LISTED]"
+						]
+					},
+					{
+						"title": "Advanced",
+						"id": "R2",
+						"price": 120,
+						"imageUrl": "assets/images/rigging_advanced.jpg",
+						"locationWhitelist": [
+							"Alden Hall",
+							"Court Floor",
+							"Odeum A",
+							"Odeum B",
+							"Odeum C",
+							"Odeum All",
+							"Odeum A&B",
+							"Odeum B&C",
+							"Odeum All (Rain Location:Harrington)",
+							"Riley Commons",
+							"Quad (Rain Location: Alden)",
+							"Quad (Rain Location: Campus Center)",
+							"Quad (Rain Location: CANCEL EVENT)",
+							"Quad (Rain Location: Harrington)",
+							"Quad (Rain Location: Rec)",
+							"Quad (Rain Location: Riley Commons)",
+							"Quad (Rain Location: Wedge)",
+							"Quad Tent",
+							"[NOT LISTED]"
+						]
 					}
 				],
-				"defaultChoice": "No"
+				"defaultChoice": "None"
 			}
 		],
 		"addons": [
@@ -243,12 +342,12 @@
 				"choices": [
 					{
 						"title": "Power Distribution",
-						"value": "PD",
+						"id": "PD",
 						"price": 40,
+						"detailPrompt": "Please describe your power needs.",
 						"description": "Power your pizza warmers or something."
 					}
-				],
-				"defaultChoice": "No"
+				]
 			}
 		]
 	}

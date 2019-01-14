@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
 	@ViewChildren(WizardProgressStepComponent) wizardSteps: QueryList<WizardProgressStepComponent>;
 	event: Event;
 	userContactInfo: object;
+	servicesErrors: string[] = [];
 
 	@ViewChild('autopopulatingModal') autopopulatingModal: ElementRef;
 	@ViewChild('loginRequiredModal') loginRequiredModal: ElementRef;
@@ -42,6 +43,10 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		this.event = new Event();
 		this.loadBaseData();
+	}
+
+	beforeUnload() {
+		return this.activeStep == 'Welcome';
 	}
 
 	stepClick($event) {
@@ -142,6 +147,40 @@ export class AppComponent implements OnInit {
 			this.event.startDate && this.event.startTime && this.event.endDate && this.event.endTime;
 	}
 
+	validateServiceDependencies() {
+		this.servicesErrors = [];
+		for (const service of this.event.services) {
+			for (const choice of service.allSelectedChoices()) {
+				if (choice.dependencies) {
+					let all_met = true;
+					for (const dependency_set of choice.dependencies) {
+						let set_met = false;
+						for (const depend of dependency_set) {
+							if (service.isChoiceSelected(depend)) {
+								set_met = true;
+								break;
+							}
+						}
+						if (!set_met) {
+							all_met = false;
+							if (dependency_set.length > 1) {
+								const dependency_names = dependency_set.map(function(dep_id: string) {
+									const serviceOption = service.getServiceOptionWithChoice(dep_id);
+									const dep = serviceOption.getChoice(dep_id);
+									return serviceOption.title + ':' + dep.title;
+								});
+								this.servicesErrors.push(`${choice.title} requires one of ${dependency_names.join(', ')}`);
+							} else {
+								this.servicesErrors.push(`${choice.title} requires ${service.getChoice(dependency_set[0]).title}`);
+							}
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	/***************************
 	 * AJAX calls
 	 ***************************/
@@ -228,7 +267,7 @@ export class AppComponent implements OnInit {
 		for (const service of this.event.services) {
 			for (const serviceOption of service.serviceOptions) {
 				for (const serviceOptionChoice of serviceOption.choices) {
-					if (serviceOptionChoice.value === serviceOptionChoiceId) {
+					if (serviceOptionChoice.id === serviceOptionChoiceId) {
 						serviceOption.selectedChoice = serviceOptionChoice;
 						serviceOption.detail = detail;
 						return;
@@ -263,8 +302,8 @@ export class AppComponent implements OnInit {
 		for (const service of this.event.services) {
 			for (const serviceOption of service.serviceOptions) {
 				// selected choice will only be added to the JSON if its value is truthy
-				if (serviceOption.selectedChoice && serviceOption.selectedChoice.value) {
-					data['services'].push({id: serviceOption.selectedChoice.value, detail: serviceOption.detail});
+				if (serviceOption.selectedChoice && serviceOption.selectedChoice.id) {
+					data['services'].push({id: serviceOption.selectedChoice.id, detail: serviceOption.detail});
 				}
 			}
 			for (const addon of service.addons) {

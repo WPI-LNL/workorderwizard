@@ -30,10 +30,13 @@ export class Location {
 export class ServiceOptionChoice {
 	title: string;
 	description: string;
-	value: any;
+	id: string;
 	price: number;
 	imageUrl: string;
 	detailPrompt: string;
+	locationWhitelist: string[];
+	locationBlacklist: string[];
+	dependencies: string[][];
 
 	constructor(data: object) {
 		Object.assign(this, data);
@@ -64,6 +67,17 @@ export class ServiceOption {
 				}
 			}
 		}
+	}
+
+	getChoice(id: string) {
+		const choices = this.choices.filter(choice => choice.id === id);
+		if (choices.length === 0) {
+			return null;
+		}
+		if (choices.length > 1) {
+			throw "It is not allowed for multiple ServiceOptionChoices to have the same ID.";
+		}
+		return choices[0];
 	}
 }
 
@@ -114,6 +128,40 @@ export class Service {
 
 	nonzeroAddons() {
 		return this.addons.filter(addon => addon.quantity > 0);
+	}
+
+	allChoices() {
+		return this.serviceOptions.map(serviceOption => serviceOption.choices).reduce((a,b) => a.concat(b))
+	}
+
+	getChoice(id: string) {
+		const choices = this.allChoices().filter(choice => choice.id === id);
+		if (choices.length === 0) {
+			return null;
+		}
+		if (choices.length > 1) {
+			throw "It is not allowed for multiple ServiceOptionChoices to have the same ID.";
+		}
+		return choices[0];
+	}
+
+	getServiceOptionWithChoice(choiceId: string) {
+		const serviceOptions = this.serviceOptions.filter(serviceOption => serviceOption.choices.map(choice => choice.id).indexOf(choiceId) > -1)
+		if (serviceOptions.length === 0) {
+			return null;
+		}
+		if (serviceOptions.length > 1) {
+			throw "It is not allowed for multiple ServiceOptionChoices to have the same ID.";
+		}
+		return serviceOptions[0];
+	}
+
+	allSelectedChoices() {
+		return this.serviceOptions.map(serviceOption => serviceOption.selectedChoice).filter(choice => Boolean(choice));
+	}
+
+	isChoiceSelected(id: string) {
+		return this.serviceOptions.some(serviceOption => serviceOption.selectedChoice && serviceOption.selectedChoice.id === id);
 	}
 }
 

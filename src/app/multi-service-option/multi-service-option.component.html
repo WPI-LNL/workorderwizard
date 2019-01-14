@@ -1,0 +1,42 @@
+<div class="row mb-3" *ngIf="serviceOptions[0].categoryTitle">
+	<div class="col">
+		<h2>{{ serviceOptions[0].categoryTitle }}</h2>
+	</div>
+</div>
+<div class="row mb-4">
+	<div class="col-md-4" *ngFor="let serviceOption of serviceOptions">
+		<div class="card selectable-card deselectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === serviceOption.choices[0]}" (click)="select(serviceOption, serviceOption.choices[0]); validate();">
+			<img *ngIf="serviceOption.choices[0].imageUrl" class="card-img-top" src="{{ serviceOption.choices[0].imageUrl }}">
+			<div class="card-body">
+				<div class="clearfix">
+					<div class="custom-control custom-checkbox pull-left">
+						<input type="checkbox" class="custom-control-input" [checked]="serviceOption.selectedChoice === serviceOption.choices[0]">
+						<label class="custom-control-label">
+							<h5 class="card-title">{{ serviceOption.choices[0].title }}</h5>
+						</label>
+					</div>
+					<div class="pull-right">
+						<span *ngIf="serviceOption.choices[0].price === 0">&ndash;</span>
+						<span *ngIf="serviceOption.choices[0].price > 0">${{ serviceOption.choices[0].price }}</span>
+					</div>
+				</div>
+				<div>
+					{{ serviceOption.choices[0].description }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngFor="let warning of warnings" class="row mb-4">
+	<div class="col">
+		<div class="alert alert-warning" [innerHtml]="warning"></div>
+	</div>
+</div>
+<div *ngFor="let serviceOption of serviceOptions">
+	<div class="row mb-4" *ngIf="serviceOption.selectedChoice && serviceOption.selectedChoice.detailPrompt">
+		<div class="col">
+			<label>{{ serviceOption.selectedChoice.detailPrompt }}</label>
+			<textarea [(ngModel)]="serviceOption.detail" class="form-control"></textarea>
+		</div>
+	</div>
+</div>

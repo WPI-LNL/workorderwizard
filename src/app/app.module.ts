@@ -13,6 +13,7 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { ServiceComponent } from './service/service.component';
 import { AddonComponent } from './addon/addon.component';
 import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/autopopulate-success-modal.component';
+import { MultiServiceOptionComponent } from './multi-service-option/multi-service-option.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/
     ErrorModalComponent,
     ServiceComponent,
     AddonComponent,
-    AutopopulateSuccessModalComponent
+    AutopopulateSuccessModalComponent,
+    MultiServiceOptionComponent
   ],
   imports: [
     BrowserModule,

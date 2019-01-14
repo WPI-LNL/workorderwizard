@@ -6,7 +6,7 @@
 </div>
 <div class="row mb-4" *ngIf="serviceOption.isBoolean">
 	<div class="col-md-4">
-		<div class="card selectable-card deselectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === serviceOption.choices[0]}" (click)="serviceOption.selectedChoice = serviceOption.selectedChoice == serviceOption.choices[0] ? none : serviceOption.choices[0]">
+		<div class="card selectable-card deselectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === serviceOption.choices[0]}" (click)="select(serviceOption.choices[0]); validate();">
 			<img *ngIf="serviceOption.choices[0].imageUrl" class="card-img-top" src="{{ serviceOption.choices[0].imageUrl }}">
 			<div class="card-body">
 				<div class="clearfix">
@@ -30,7 +30,7 @@
 </div>
 <div class="row mb-4" *ngIf="!serviceOption.isBoolean">
 	<div class="col-md-4" *ngFor="let choice of serviceOption.choices">
-		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="serviceOption.selectedChoice = choice">
+		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="select(choice); validate();">
 			<img *ngIf="choice.imageUrl" class="card-img-top" src="{{ choice.imageUrl }}">
 			<div class="card-body">
 				<div class="clearfix">
@@ -50,6 +50,11 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="row mb-4" *ngIf="warning">
+	<div class="col">
+		<div class="alert alert-warning" [innerHtml]="warning"></div>
 	</div>
 </div>
 <div class="row mb-4" *ngIf="serviceOption.selectedChoice && serviceOption.selectedChoice.detailPrompt">
