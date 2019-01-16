@@ -1,5 +1,3 @@
-import * as servicesJson from '../assets/services.json';
-
 export class Organization {
 	id: number;
 	name: string;
@@ -85,7 +83,9 @@ export class Addon {
 	title: string;
 	description: string;
 	price: number;
+	dependencies: string[][];
 	quantity = 0;
+	hidden = false;
 
 	constructor(data: object) {
 		Object.assign(this, data);
@@ -250,9 +250,10 @@ export class Event {
 		}
 	}
 
-	constructor() {
+	constructor(services_asset: string) {
+		const servicesJson = require('../assets/' + services_asset);
 		this.services = [];
-		for (const serviceJson of servicesJson.default) {
+		for (const serviceJson of servicesJson) {
 			const service = new Service(serviceJson['title']);
 			for (const serviceOptionJson of serviceJson['options']) {
 				service.serviceOptions.push(new ServiceOption(serviceOptionJson));

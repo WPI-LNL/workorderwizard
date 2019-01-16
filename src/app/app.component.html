@@ -43,7 +43,8 @@
 		<div class="col">
 			<h1>Testing!</h1>
 			<p>Please note that, as before, events submitted with less than 2 weeks' notice are considered late and will incur a late fee.</p>
-			<button (click)="advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
+			<button (click)="initEvent('services_lightingsoundpower.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a lighting, sound, or power work order</button>
+			<button (click)="initEvent('services_projection.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a projection work order</button>
 		</div>
 	</div>
 	<!-- /Welcome -->
@@ -145,7 +146,7 @@
 	<!-- Services -->
 	<div class="row" *ngIf="activeStep === 'Services'">
 		<div class="col-lg-9 col-lg-push-3">
-			<nav id="services-navbar" class="sticky-top mb-3 navbar navbar-dark bg-dark">
+			<nav *ngIf="event.services.length > 1" id="services-navbar" class="sticky-top mb-3 navbar navbar-dark bg-dark">
 				<ul class="nav nav-pills">
 					<li *ngFor="let service of event.services" class="nav-item">
 						<a class="nav-link" [href]="'#' + service.title.toLowerCase()">{{ service.title }}</a>

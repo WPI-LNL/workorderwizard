@@ -33,4 +33,28 @@ export class ServiceComponent implements OnInit {
     }
   }
 
+  showHideAddons() {
+    for (const addon of this.service.addons) {
+      if (addon.dependencies) {
+        let all_met = true;
+        for (const dependency_set of addon.dependencies) {
+          let set_met = false;
+          for (const depend of dependency_set) {
+            if (this.service.isChoiceSelected(depend)) {
+              set_met = true;
+              break;
+            }
+          }
+          if (!set_met) {
+            all_met = false;
+            break;
+          }
+        }
+        addon.hidden = !all_met;
+        if (addon.hidden) {
+          addon.quantity = 0;
+        }
+      }
+    }
+  }
 }

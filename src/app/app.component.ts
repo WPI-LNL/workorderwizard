@@ -41,12 +41,18 @@ export class AppComponent implements OnInit {
 	constructor(private modalService: NgbModal, private http: HttpClient) {}
 
 	ngOnInit() {
-		this.event = new Event();
 		this.loadBaseData();
 	}
 
+	/**
+	 * Display a warning before navigating away from the workorder wizard if the user has advanced past the welcome page.
+	 */
 	beforeUnload() {
 		return this.activeStep == 'Welcome';
+	}
+
+	initEvent(services_asset: string) {
+		this.event = new Event(services_asset);
 	}
 
 	stepClick($event) {

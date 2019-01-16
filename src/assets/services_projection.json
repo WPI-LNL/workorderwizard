@@ -1,0 +1,78 @@
+[
+	{
+		"title": "Projection",
+		"options": [
+			{
+				"title": "Projection",
+				"choices": [
+					{
+						"title": "Digital",
+						"id": "DP",
+						"price": 20,
+						"locationWhitelist": [
+							"Perreault Hall Upper",
+							"Perreault Hall UPR"
+						]
+					},
+					{
+						"title": "16mm",
+						"id": "16",
+						"price": 20,
+						"locationWhitelist": [
+							"Perreault Hall Upper",
+							"Perreault Hall UPR"
+						]
+					},
+					{
+						"title": "35mm",
+						"id": "35",
+						"price": 30,
+						"locationWhitelist": [
+							"Perreault Hall Upper",
+							"Perreault Hall UPR"
+						]
+					},
+					{
+						"title": "70mm",
+						"id": "70",
+						"price": 55,
+						"locationWhitelist": [
+							"Perreault Hall Upper",
+							"Perreault Hall UPR"
+						]
+					}
+				]
+			}
+		],
+		"addons": [
+			{
+				"title": "Additional 20 Minutes Digital Projection",
+				"price": 7,
+				"dependencies": [
+					["DP"]
+				]
+			},
+			{
+				"title": "16mm Film Reel",
+				"price": 12,
+				"dependencies": [
+					["16"]
+				]
+			},
+			{
+				"title": "35mm Film Reel",
+				"price": 10,
+				"dependencies": [
+					["35"]
+				]
+			},
+			{
+				"title": "70mm Film Reel",
+				"price": 15,
+				"dependencies": [
+					["70"]
+				]
+			}
+		]
+	}
+]
