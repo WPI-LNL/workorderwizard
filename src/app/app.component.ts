@@ -207,6 +207,9 @@ export class AppComponent implements OnInit {
 			appComponent.locations = locations;
 			appComponent.defaultOrgSearchResults = appComponent.orgs.filter(org => org.owner || org.member);
 			appComponent.orgSearchResults = appComponent.defaultOrgSearchResults;
+			if (appComponent.defaultOrgSearchResults.length === 1) {
+				appComponent.selectOrg(appComponent.defaultOrgSearchResults[0]);
+			}
 			appComponent.locationSearchResults = appComponent.locations;
 		}, function(error) {
 			if (error.status === 401) {
