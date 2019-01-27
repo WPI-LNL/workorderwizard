@@ -13,9 +13,14 @@ app-wizard-progress-step {
 	background-color: $lnl-yellow;
 }
 
-app-service:before {
+app-service:not(:first-child):before {
 	content: "";
 	display: block;
 	height: 4rem;
 	margin-top: -4rem;
+}
+
+#services-sidebar td, #services-sidebar th {
+	padding-top: 0.4rem;
+	padding-bottom: 0.4rem;
 }

@@ -8,6 +8,19 @@ import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { WizardProgressStepComponent } from './wizard-progress-step/wizard-progress-step.component';
 import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/autopopulate-success-modal.component';
 
+const groupBy = function(xs, key) {
+	const grouped = xs.reduce(function(rv, x) {
+		(rv[x[key]] = rv[x[key]] || []).push(x);
+		return rv;
+	}, {});
+	let output = [];
+	for (const group in grouped) {
+		output.push(group);
+		output = output.concat(grouped[group]);
+	}
+	return output;
+};
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -21,6 +34,9 @@ export class AppComponent implements OnInit {
 	event: Event;
 	userContactInfo: object;
 	servicesErrors: string[] = [];
+	servicesWarnings: string[] = [];
+	overrideBeforeUnload = false;
+	locationLocked = false;
 
 	@ViewChild('autopopulatingModal') autopopulatingModal: ElementRef;
 	@ViewChild('loginRequiredModal') loginRequiredModal: ElementRef;
@@ -36,7 +52,7 @@ export class AppComponent implements OnInit {
 
 	@ViewChild('locationSearch') locationSearchInput: ElementRef;
 	locations: Location[];
-	locationSearchResults: Location[];
+	locationSearchResults: any[];
 
 	constructor(private modalService: NgbModal, private http: HttpClient) {}
 
@@ -48,11 +64,15 @@ export class AppComponent implements OnInit {
 	 * Display a warning before navigating away from the workorder wizard if the user has advanced past the welcome page.
 	 */
 	beforeUnload() {
-		return this.activeStep == 'Welcome';
+		return this.activeStep == 'Welcome' || this.overrideBeforeUnload;
 	}
 
-	initEvent(services_asset: string) {
-		this.event = new Event(services_asset);
+	initEvent(servicesAsset: string, forceLocation: string) {
+		this.event = new Event(servicesAsset);
+		if (forceLocation) {
+			this.locationLocked = true;
+			this.event.location = this.locations.filter(loc => loc.name === forceLocation)[0];
+		}
 	}
 
 	stepClick($event) {
@@ -122,7 +142,9 @@ export class AppComponent implements OnInit {
 		org.selected = true;
 		this.orgSearchVisible = false;
 		this.orgSearchResults = this.defaultOrgSearchResults;
-		this.orgSearchInput.nativeElement.value = null;
+		if (this.orgSearchInput) {
+			this.orgSearchInput.nativeElement.value = null;
+		}
 	}
 
 	orgSearchChange(value) {
@@ -135,10 +157,10 @@ export class AppComponent implements OnInit {
 
 	locationSearchChange(value) {
 		if (value === '') {
-			this.locationSearchResults = this.locations;
+			this.locationSearchResults = groupBy(this.locations, 'building');
 		} else {
-			this.locationSearchResults = this.locations.filter(loc => loc.name.toLowerCase().includes(value.toLowerCase()) ||
-				loc.building.toLowerCase().includes(value.toLowerCase()));
+			this.locationSearchResults = groupBy(this.locations.filter(loc => loc.name.toLowerCase().includes(value.toLowerCase()) ||
+				loc.building.toLowerCase().includes(value.toLowerCase())), 'building');
 		}
 	}
 
@@ -155,10 +177,10 @@ export class AppComponent implements OnInit {
 
 	validateServiceDependencies() {
 		this.servicesErrors = [];
+		this.servicesWarnings = [];
 		for (const service of this.event.services) {
 			for (const choice of service.allSelectedChoices()) {
 				if (choice.dependencies) {
-					let all_met = true;
 					for (const dependency_set of choice.dependencies) {
 						let set_met = false;
 						for (const depend of dependency_set) {
@@ -168,7 +190,6 @@ export class AppComponent implements OnInit {
 							}
 						}
 						if (!set_met) {
-							all_met = false;
 							if (dependency_set.length > 1) {
 								const dependency_names = dependency_set.map(function(dep_id: string) {
 									const serviceOption = service.getServiceOptionWithChoice(dep_id);
@@ -177,9 +198,22 @@ export class AppComponent implements OnInit {
 								});
 								this.servicesErrors.push(`${choice.title} requires one of ${dependency_names.join(', ')}`);
 							} else {
-								this.servicesErrors.push(`${choice.title} requires ${service.getChoice(dependency_set[0]).title}`);
+								const serviceOption = service.getServiceOptionWithChoice(dependency_set[0]);
+								const dep = serviceOption.getChoice(dependency_set[0]);
+								this.servicesErrors.push(`${choice.title} requires ${serviceOption.title + ':' + dep.title}`);
 							}
 							break;
+						}
+					}
+				}
+				if (choice.conflicts) {
+					for (const conflict of choice.conflicts) {
+						if (service.isChoiceSelected(conflict)) {
+							const serviceOption = service.getServiceOptionWithChoice(choice.id);
+							const conflictServiceOption = service.getServiceOptionWithChoice(conflict);
+							const conflictChoice = conflictServiceOption.getChoice(conflict);
+							const choiceTitle = serviceOption.title === choice.title ? choice.title : serviceOption.title + ':' + choice.title;
+							this.servicesWarnings.push(`Not recommended to combine ${choiceTitle} and ${conflictServiceOption.title + ':' + conflictChoice.title}`);
 						}
 					}
 				}
@@ -210,7 +244,7 @@ export class AppComponent implements OnInit {
 			if (appComponent.defaultOrgSearchResults.length === 1) {
 				appComponent.selectOrg(appComponent.defaultOrgSearchResults[0]);
 			}
-			appComponent.locationSearchResults = appComponent.locations;
+			appComponent.locationSearchResults = groupBy(appComponent.locations, 'building');
 		}, function(error) {
 			if (error.status === 401) {
 				appComponent.modalService.open(appComponent.loginRequiredModal, {backdrop: 'static', keyboard: false});
@@ -248,7 +282,6 @@ export class AppComponent implements OnInit {
 			modal.close();
 			if (response) {
 				modal = appComponent.modalService.open(AutopopulateSuccessModalComponent);
-				modal.componentInstance.skipToReview = () => appComponent.switchToStep('Review');
 				modal.componentInstance.eventName = response['event_name'];
 				modal.componentInstance.eventLocation = appComponent.locations.find(loc => loc.id === response['location']);
 				modal.componentInstance.eventStart = new Date(response['start']);
@@ -327,6 +360,7 @@ export class AppComponent implements OnInit {
 				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {
 			modal.close();
 			appComponent.displaySubmitSuccessModal();
+			appComponent.overrideBeforeUnload = true;
 			setTimeout(function() {
 				window.location.href = DB_URL + response['event_url'];
 			}, 2000);

@@ -37,13 +37,45 @@
 						"title": "House System",
 						"id": "O1",
 						"price": 0,
-						"description": "We will use the speakers that are permanently installed in the venue."
+						"description": "We will use the speakers that are permanently installed in the venue.",
+						"locationWhitelist": [
+							"Alden Hall",
+							"Court Floor",
+							"Odeum A",
+							"Odeum B",
+							"Odeum C",
+							"Odeum All",
+							"Odeum A&B",
+							"Odeum B&C",
+							"Odeum All (Rain Location:Harrington)",
+							"Higgins House Great Hall",
+							"Food Court Stage",
+							"[NOT LISTED]"
+						],
+						"conflicts": [
+							"I2",
+							"I3"
+						]
 					},
 					{
 						"title": "Small",
 						"id": "O2",
 						"price": 80,
-						"description": "Two small speakers. Suitable for speaking events, casual background music, or small event spaces."
+						"description": "Two small speakers. Suitable for speaking events, casual background music, or small event spaces.",
+						"locationBlacklist": [
+							"Court Floor",
+							"Quad (Rain Location: Alden)",
+							"Quad (Rain Location: Campus Center)",
+							"Quad (Rain Location: CANCEL EVENT)",
+							"Quad (Rain Location: Harrington)",
+							"Quad (Rain Location: Rec)",
+							"Quad (Rain Location: Riley Commons)",
+							"Quad (Rain Location: Wedge)",
+							"Quad Tent"
+						],
+						"conflicts": [
+							"I3"
+						]
 					},
 					{
 						"title": "Large",
@@ -62,7 +94,10 @@
 						"title": "Subwoofers",
 						"id": "SB",
 						"price": 50,
-						"description": "Subwoofers add bass to your event's sound. Recommended for bands, stage shows, or dances. Suitable for most events involving music."
+						"description": "Subwoofers add bass to your event's sound. Recommended for bands, stage shows, or dances. Suitable for most events involving music.",
+						"dependencies": [
+							["O3"]
+						]
 					}
 				]
 			},
@@ -75,7 +110,11 @@
 						"id": "OM",
 						"price": 30,
 						"detailPrompt": "Please describe your monitor requirements.",
-						"description": "Monitors for on-stage performers. Recommended for stage shows and bands."
+						"description": "Monitors for on-stage performers. Recommended for stage shows and bands.",
+						"conflicts": [
+							"O1",
+							"O2"
+						]
 					}
 				]
 			},
@@ -176,7 +215,11 @@
 						"price": 50,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc.",
-						"imageUrl": "assets/images/area_basic.jpg"
+						"imageUrl": "assets/images/area_basic.jpg",
+						"addons": [
+							"Mirror Ball",
+							"Strobe Lights"
+						]
 					},
 					{
 						"title": "Advanced",
@@ -208,6 +251,10 @@
 							"Quad (Rain Location: Wedge)",
 							"Quad Tent",
 							"[NOT LISTED]"
+						],
+						"addons": [
+							"Mirror Ball",
+							"Strobe Lights"
 						]
 					}
 				],
@@ -229,7 +276,7 @@
 			},
 			{
 				"title": "Haze",
-				"description": "We own one fog machine and can rent more to suit your needs. Use of haze requires a fire watch which you must arrange and pay for.",
+				"description": "We own one fog machine and can rent more to suit your needs. Use of haze indoors requires a fire watch which you must arrange and pay for.",
 				"isBoolean": true,
 				"choices": [
 					{
@@ -327,9 +374,14 @@
 		],
 		"addons": [
 			{
-				"title": "Special spot / photo booth light",
-				"description": "For all your inconveniently-located lighting needs",
-				"price": 10
+				"title": "Mirror Ball",
+				"price": 0,
+				"isBoolean": true
+			},
+			{
+				"title": "Strobe Lights",
+				"price": 0,
+				"isBoolean": true
 			}
 		]
 	},

@@ -1,14 +1,18 @@
 <div class="row mb-3">
 	<div class="col">
-		<h2>{{ addon.title }}</h2>
-		{{ addon.description }}
-	</div>
-</div>
-<div class="row mb-4">
-	<div class="col">
-		<div class="form-inline">
-			<label class="mr-3">Quantity</label>
-			<input type="number" class="quantity" [(ngModel)]="addon.quantity" min="0">
+		<div class="float-left">
+			<strong>{{ addon.title }} <span *ngIf="addon.price > 0">${{ addon.price }}</span></strong><br>
+			{{ addon.description }}
+		</div>
+		<div class="float-right">
+			<div *ngIf="!addon.isBoolean" class="form-inline">
+				<label class="mr-3">Quantity</label>
+				<input type="number" class="quantity" [(ngModel)]="addon.quantity" min="0">
+			</div>
+			<div *ngIf="addon.isBoolean" class="custom-control custom-checkbox pull-left" (click)="addon.quantity = addon.quantity > 0 ? 0 : 1;">
+				<input type="checkbox" class="custom-control-input" [checked]="addon.quantity === 1">
+				<label class="custom-control-label">{{ addon.title }}</label>
+			</div>
 		</div>
 	</div>
 </div>

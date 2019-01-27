@@ -33,6 +33,7 @@
 	</div>
 </div>
 <div *ngFor="let serviceOption of serviceOptions">
+		<app-addon *ngFor="let addon of getAddons(serviceOption)" [addon]="addon"></app-addon>
 	<div class="row mb-4" *ngIf="serviceOption.selectedChoice && serviceOption.selectedChoice.detailPrompt">
 		<div class="col">
 			<label>{{ serviceOption.selectedChoice.detailPrompt }}</label>

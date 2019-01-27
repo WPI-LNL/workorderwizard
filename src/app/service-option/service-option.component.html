@@ -52,7 +52,8 @@
 		</div>
 	</div>
 </div>
-<div class="row mb-4" *ngIf="warning">
+<app-addon *ngFor="let addon of getAddons()" [addon]="addon"></app-addon>
+<div class="row mb-4" *ngFor="let warning of warnings">
 	<div class="col">
 		<div class="alert alert-warning" [innerHtml]="warning"></div>
 	</div>

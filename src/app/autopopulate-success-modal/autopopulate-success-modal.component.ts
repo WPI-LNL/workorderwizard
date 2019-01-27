@@ -12,7 +12,6 @@ export class AutopopulateSuccessModalComponent implements OnInit {
   eventName: string;
   eventLocation: Location;
   eventStart: Date;
-  skipToReview: Function;
 
   constructor(public modal: NgbActiveModal) { }
 

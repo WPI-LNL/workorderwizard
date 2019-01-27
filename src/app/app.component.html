@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+<nav id="navbar" class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -44,7 +44,7 @@
 			<h1>Testing!</h1>
 			<p>Please note that, as before, events submitted with less than 2 weeks' notice are considered late and will incur a late fee.</p>
 			<button (click)="initEvent('services_lightingsoundpower.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a lighting, sound, or power work order</button>
-			<button (click)="initEvent('services_projection.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a projection work order</button>
+			<button (click)="initEvent('services_projection.json', 'Perreault Hall UPR'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a projection work order</button>
 		</div>
 	</div>
 	<!-- /Welcome -->
@@ -98,7 +98,7 @@
 				<label for="eventName">Event Name</label>
 				<input type="text" [(ngModel)]="event.name" class="form-control" id="eventName">
 			</div>
-			<div class="form-group">
+			<div class="form-group" *ngIf="!locationLocked">
 				<label for="eventLocationDropdown">Location</label>
 				<div *ngIf="locations" ngbDropdown>
 					<button ngbDropdownToggle class="btn btn-outline-primary" id="eventLocationDropdown" (click)="focusLocationSearch()">{{ event.location ? event.location.name + ' \u2013 ' + event.location.building : 'Select a location' }}</button>
@@ -107,10 +107,14 @@
 							<input #locationSearch type="text" class="form-control" placeholder="Search for location" (input)="locationSearchChange($event.target.value)" (click)="$event.stopPropagation()">
 						</div>
 						<div class="dropdown-divider"></div>
-						<button class="dropdown-item" *ngFor="let location of locationSearchResults" (click)="event.location = location">{{ location.name }}</button>
+						<button class="dropdown-item" *ngFor="let item of locationSearchResults" [disabled]="!item.name" (click)="event.location = item">{{ item.name || item }}</button>
 					</div>
 				</div>
-				<div *ngIf="!locations"><i class="fa fa-refresh fa-spin fa-2x"></i></div>
+				<div *ngIf="!locations"><span class="fa fa-refresh fa-spin fa-2x"></span></div>
+			</div>
+			<div class="form-group" *ngIf="locationLocked">
+				<label>Location</label>
+				<p>{{ event.location.name }} <span class="fa fa-info-circle" ngbTooltip="The location is locked for this type of work order. To use a different location, contact us at lnl@wpi.edu." placement="right"></span></p>
 			</div>
 			<div class="form-group">
 				<label for="eventDescription">Event Description</label>
@@ -156,7 +160,7 @@
 			<app-service *ngFor="let service of event.services" [id]="service.title.toLowerCase()" [service]="service" [location]="event.location" (doValidate)="validateServiceDependencies()"></app-service>
 		</div>
 		<div class="col-lg-3">
-			<div class="sticky-top">
+			<div id="services-sidebar" class="sticky-top">
 				<table class="table">
 					<thead>
 						<tr>
@@ -165,21 +169,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let serviceOption of event.nonzeroServiceOptions()">
+						<tr *ngFor="let serviceOption of event.nonnullServiceOptions()">
 							<td *ngIf="!serviceOption.isBoolean">{{ serviceOption.title }}: {{ serviceOption.selectedChoice.title }}</td>
 							<td *ngIf="serviceOption.isBoolean">{{ serviceOption.title }}</td>
-							<td>{{ serviceOption.selectedChoice.price }}</td>
+							<td>${{ serviceOption.selectedChoice.price }}</td>
 						</tr>
 						<tr *ngFor="let addon of event.nonzeroAddons()">
 							<td>{{ addon.title }} x {{ addon.quantity }}</td>
-							<td>{{ addon.price * addon.quantity }}</td>
+							<td>${{ addon.price * addon.quantity }}</td>
+						</tr>
+						<tr *ngFor="let fee of event.getFees()">
+							<td>{{ fee.title }}</td>
+							<td>${{ fee.price }}</td>
 						</tr>
 					</tbody>
-					<tfoot>
+					<tfoot class="font-weight-bold">
 						<td>Total</td>
-						<td>{{ event.getTotalPrice() }}</td>
+						<td>${{ event.getTotalPrice() }}</td>
 					</tfoot>
 				</table>
+				<div *ngFor="let warning of servicesWarnings" class="alert alert-warning" [innerHtml]="warning"></div>
 				<div *ngFor="let error of servicesErrors" class="alert alert-danger" [innerHtml]="error"></div>
 				<button (click)="advanceStep()" [disabled]="servicesErrors && servicesErrors.length" class="btn btn-block btn-lg btn-primary mb-4">Next</button>
 			</div>
@@ -190,11 +199,12 @@
 	<div *ngIf="activeStep === 'Review'">
 		<div class="row">
 			<div class="col">
+				<div *ngFor="let warning of event.getReviewPageWarnings()" class="alert alert-warning" [innerHtml]="warning"></div>
 				<p>The information you have entered is listed below. Press Submit to submit the work order.
 				After you submit, we will contact you by email with any questions we have about your event.
-				After all questions are answered, we will provide you with an official quote for our services.
-				The price calculated by this online form should not be heavily relied on, as you may select options
-				that are not appropriate for your event and some events may incur extra charges that this form cannot reflect.</p>
+				After all questions are answered, we will provide you with a quote for our services.
+				The price calculated by this online form should not be relied on, as you may select options that are not
+				appropriate for your event and some events may incur extra charges that this form cannot reflect.</p>
 			</div>
 		</div>
 		<div class="row">
@@ -252,7 +262,7 @@
 			</div>
 			<div class="col-lg-7">
 				<div class="row" *ngFor="let service of event.services">
-					<div class="col">
+					<div class="col" *ngIf="service.nonnullServiceOptions().length > 0 || service.nonzeroAddons().length > 0">
 						<h1>{{ service.title }}</h1>
 						<table class="table">
 							<thead>
@@ -263,19 +273,38 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let serviceOption of service.serviceOptions" [hidden]="!serviceOption.selectedChoice || serviceOption.selectedChoice.value === null">
+								<tr *ngFor="let serviceOption of service.nonnullServiceOptions()">
 									<td>{{ serviceOption.title }}:{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.title : 'N/A' }}</td>
-									<td>{{ serviceOption.selectedChoice ? serviceOption.selectedChoice.price : '' }}</td>
+									<td>{{ serviceOption.selectedChoice ? '$' + serviceOption.selectedChoice.price : '' }}</td>
 									<td>{{ serviceOption.detail }}</td>
 								</tr>
-								<tr *ngFor="let addon of service.addons" [hidden]="!addon.quantity">
+								<tr *ngFor="let addon of service.nonzeroAddons()">
 									<td>{{ addon.title }} x {{ addon.quantity }}</td>
-									<td>{{ addon.quantity > 0 ? addon.price * addon.quantity : '' }}</td>
+									<td>{{ addon.quantity > 0 ? '$' + (addon.price * addon.quantity) : '' }}</td>
 									<td></td>
 								</tr>
 							</tbody>
 						</table>
-					</div>		
+					</div>
+				</div>
+				<div class="row" *ngIf="event.getFees().length > 0">
+					<div class="col">
+						<h1>Fees</h1>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Fee</th>
+									<th scope="col">Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let fee of event.getFees()">
+									<td>{{ fee.title }}</td>
+									<td>${{ fee.price }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

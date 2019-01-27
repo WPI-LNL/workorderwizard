@@ -35,6 +35,8 @@ export class ServiceOptionChoice {
 	locationWhitelist: string[];
 	locationBlacklist: string[];
 	dependencies: string[][];
+	conflicts: string[];
+	addons: string[];
 
 	constructor(data: object) {
 		Object.assign(this, data);
@@ -85,7 +87,7 @@ export class Addon {
 	price: number;
 	dependencies: string[][];
 	quantity = 0;
-	hidden = false;
+	isBoolean: boolean;
 
 	constructor(data: object) {
 		Object.assign(this, data);
@@ -122,8 +124,8 @@ export class Service {
 		return total;
 	}
 
-	nonzeroServiceOptions() {
-		return this.serviceOptions.filter(opt => opt.selectedChoice && opt.selectedChoice.price);
+	nonnullServiceOptions() {
+		return this.serviceOptions.filter(opt => opt.selectedChoice && opt.selectedChoice.id);
 	}
 
 	nonzeroAddons() {
@@ -162,6 +164,20 @@ export class Service {
 
 	isChoiceSelected(id: string) {
 		return this.serviceOptions.some(serviceOption => serviceOption.selectedChoice && serviceOption.selectedChoice.id === id);
+	}
+
+	getAddon(title: string) {
+		if (!this.addons || this.addons.length === 0) {
+			return null;
+		}
+		const addons = this.addons.filter(addon => addon.title === title);
+		if (addons.length === 0) {
+			return null;
+		}
+		if (addons.length > 1) {
+			throw "It is not allowed for multiple addons to have the same title.";
+		}
+		return addons[0];
 	}
 }
 
@@ -228,9 +244,9 @@ export class Event {
 	getDatetime(date: object, time: object) {
 		if (date) {
 			if (time) {
-				return new Date(date['year'], date['month'], date['day'], time['hour'], time['minute']);
+				return new Date(date['year'], date['month']-1, date['day'], time['hour'], time['minute']);
 			}
-			return new Date(date['year'], date['month'], date['day']);
+			return new Date(date['year'], date['month']-1, date['day']);
 		}
 		return null;
 	}
@@ -250,8 +266,8 @@ export class Event {
 		}
 	}
 
-	constructor(services_asset: string) {
-		const servicesJson = require('../assets/' + services_asset);
+	constructor(servicesAsset: string) {
+		const servicesJson = require('../assets/' + servicesAsset);
 		this.services = [];
 		for (const serviceJson of servicesJson) {
 			const service = new Service(serviceJson['title']);
@@ -267,7 +283,37 @@ export class Event {
 		}
 	}
 
-	getTotalPrice() {
+	getFees() {
+		const fees = [];
+		const now = new Date();
+		if (this.setupCompleteDatetime > now) {
+			const twoWeeksFromNow = new Date(now.getTime());
+			twoWeeksFromNow.setDate(now.getDate() + 14)
+			const oneWeekFromNow = new Date(now.getTime());
+			oneWeekFromNow.setDate(now.getDate() + 7)
+			const twoDaysFromNow = new Date(now.getTime());
+			twoDaysFromNow.setDate(now.getDate() + 2)
+			if (this.setupCompleteDatetime < twoDaysFromNow) {
+				fees.push({
+					title: 'Late Booking Fee (less than 48 hours\' notice)',
+					price: Math.max(100, this.getTotalServicesPrice())
+				})
+			} else if (this.setupCompleteDatetime < oneWeekFromNow) {
+				fees.push({
+					title: 'Late Booking Fee (less than 1 week\'s notice)',
+					price: Math.max(50, this.getTotalServicesPrice() * 0.5)
+				})
+			} else if (this.setupCompleteDatetime < twoWeeksFromNow) {
+				fees.push({
+					title: 'Late Booking Fee (less than 2 weeks\' notice)',
+					price: Math.max(25, this.getTotalServicesPrice() * 0.25)
+				})
+			}
+		}
+		return fees;
+	}
+
+	getTotalServicesPrice() {
 		let total = 0;
 		for (const service of this.services) {
 			total += service.getTotalPrice();
@@ -275,11 +321,33 @@ export class Event {
 		return total;
 	}
 
-	nonzeroServiceOptions() {
-		return Array.prototype.concat.apply([], this.services.map(service => service.nonzeroServiceOptions()));
+	getTotalPrice() {
+		let total = this.getTotalServicesPrice();
+		for (const fee of this.getFees()) {
+			total += fee.price;
+		}
+		return total;
+	}
+
+	nonnullServiceOptions() {
+		return Array.prototype.concat.apply([], this.services.map(service => service.nonnullServiceOptions()));
 	}
 
 	nonzeroAddons() {
 		return Array.prototype.concat.apply([], this.services.map(service => service.nonzeroAddons()));
+	}
+
+	getReviewPageWarnings() {
+		const warnings = [];
+		const now = new Date();
+		if (this.setupCompleteDatetime < now) {
+			warnings.push('You are submitting an event scheduled in the past.');
+		}
+		if (this.endDatetime.getHours() >= 23 || this.endDatetime.getHours() < 1) {
+			warnings.push('There is an hourly fee if we must work past 1 AM to tear down your event.');
+		} else if (this.endDatetime.getHours() < 5) {
+			warnings.push('There is an hourly fee if we must work past 1 AM for your event.');
+		}
+		return warnings;
 	}
 }
