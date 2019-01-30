@@ -11,21 +11,30 @@
 						"id": "I1",
 						"price": 50,
 						"detailPrompt": "Please describe your microphone and laptop/phone input requirements.",
-						"description": "Music and up to 2 inputs. Suitable for speaking events, small performances, or background music."
+						"description": "Music and up to 2 inputs. Suitable for speaking events, small performances, or background music.",
+						"addons": [
+							"Wireless Microphone"
+						]
 					},
 					{
 						"title": "Medium",
 						"id": "I2",
 						"price": 75,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, laptop input, etc.",
-						"description": "Music and up to 8 inputs. Suitable for panel discussions or small performances."
+						"description": "Music and up to 8 inputs. Suitable for panel discussions or small performances.",
+						"addons": [
+							"Wireless Microphone"
+						]
 					},
 					{
 						"title": "Large",
 						"id": "I3",
 						"price": 150,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, etc. If your event is a stage show with multiple acts, you will be asked for a set list via email and you only need to provide a general description here.",
-						"description": "Unlimited inputs. Suitable for large stage shows, concerts, bands, or other large events."
+						"description": "Unlimited inputs. Suitable for large stage shows, concerts, bands, or other large events.",
+						"addons": [
+							"Wireless Microphone"
+						]
 					}
 				]
 			},
