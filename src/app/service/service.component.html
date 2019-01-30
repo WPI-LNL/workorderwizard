@@ -4,6 +4,6 @@
 	</div>
 </div>
 <div *ngFor="let item of serviceOptions">
-	<app-service-option *ngIf="item.constructor.name !== 'Array'" [serviceOption]="item" [location]="location" [getAddon]="service.getAddon.bind(service)" (doValidate)="doValidate.emit($event)"></app-service-option>
-	<app-multi-service-option *ngIf="item.constructor.name === 'Array'" [serviceOptions]="item" [location]="location" [getAddon]="service.getAddon.bind(service)" (doValidate)="doValidate.emit($event)"></app-multi-service-option>
+	<app-service-option *ngIf="item.constructor.name !== 'Array'" [serviceOption]="item" [location]="location" [getAddon]="service.getAddon.bind(service)" (doValidate)="validate()"></app-service-option>
+	<app-multi-service-option *ngIf="item.constructor.name === 'Array'" [serviceOptions]="item" [location]="location" [getAddon]="service.getAddon.bind(service)" (doValidate)="validate()"></app-multi-service-option>
 </div>

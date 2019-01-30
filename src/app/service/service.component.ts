@@ -32,4 +32,19 @@ export class ServiceComponent implements OnInit {
 			this.serviceOptions.push(multi);
 		}
 	}
+
+	validate() {
+		this.doValidate.emit();
+		let unavailableAddons = this.service.addons;
+		for (const choice of this.service.allSelectedChoices()) {
+			if (choice.addons) {
+				for (const title of choice.addons) {
+					unavailableAddons = unavailableAddons.filter(addon => addon.title != title)
+				}
+			}
+		}
+		for (const addon of unavailableAddons) {
+			addon.quantity = 0;
+		}
+	}
 }
