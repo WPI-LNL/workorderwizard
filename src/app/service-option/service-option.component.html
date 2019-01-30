@@ -28,9 +28,9 @@
 		</div>
 	</div>
 </div>
-<div class="row mb-4" *ngIf="!serviceOption.isBoolean">
+<div class="row mb-2" *ngIf="!serviceOption.isBoolean">
 	<div class="col-md-4" *ngFor="let choice of serviceOption.choices">
-		<div class="card selectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="select(choice); validate();">
+		<div class="card selectable-card mb-2" [ngClass]="{'selected': serviceOption.selectedChoice === choice}" (click)="select(choice); validate();">
 			<img *ngIf="choice.imageUrl" class="card-img-top" src="{{ choice.imageUrl }}">
 			<div class="card-body">
 				<div class="clearfix">

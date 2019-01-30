@@ -3,9 +3,9 @@
 		<h2>{{ serviceOptions[0].categoryTitle }}</h2>
 	</div>
 </div>
-<div class="row mb-4">
+<div class="row mb-2">
 	<div class="col-md-4" *ngFor="let serviceOption of serviceOptions">
-		<div class="card selectable-card deselectable-card" [ngClass]="{'selected': serviceOption.selectedChoice === serviceOption.choices[0]}" (click)="select(serviceOption, serviceOption.choices[0]); validate();">
+		<div class="card selectable-card deselectable-card mb-2" [ngClass]="{'selected': serviceOption.selectedChoice === serviceOption.choices[0]}" (click)="select(serviceOption, serviceOption.choices[0]); validate();">
 			<img *ngIf="serviceOption.choices[0].imageUrl" class="card-img-top" src="{{ serviceOption.choices[0].imageUrl }}">
 			<div class="card-body">
 				<div class="clearfix">

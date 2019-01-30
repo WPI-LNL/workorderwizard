@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
 :host {padding: 0; position: relative;}
-.step-title {font-size: 16px; margin-bottom: 5px;}
+.step-title {font-size: 16px; margin-bottom: 5px; white-space: nowrap;}
 :host.complete .step-title {cursor: pointer;}
 .step-dot {position: absolute; width: 30px; height: 30px; display: block; background: $lnl-yellow; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;}
 :host.complete .step-dot {cursor: pointer;} 
