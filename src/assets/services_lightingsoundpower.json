@@ -71,6 +71,7 @@
 						"id": "O2",
 						"price": 80,
 						"description": "Two small speakers. Suitable for speaking events, casual background music, or small event spaces.",
+						"imageUrl": "assets/images/speakers_small.jpg",
 						"locationBlacklist": [
 							"Court Floor",
 							"Quad (Rain Location: Alden)",
@@ -90,7 +91,8 @@
 						"title": "Large",
 						"id": "O3",
 						"price": 120,
-						"description": "Two larger speakers. Suitable for stage shows, dances, or larger event spaces."
+						"description": "Two larger speakers. Suitable for stage shows, dances, or larger event spaces.",
+						"imageUrl": "assets/images/speakers_large.jpg"
 					}
 				]
 			},
@@ -120,6 +122,7 @@
 						"price": 30,
 						"detailPrompt": "Please describe your monitor requirements.",
 						"description": "Monitors for on-stage performers. Recommended for stage shows and bands.",
+						"imageUrl": "assets/images/monitor.jpg",
 						"conflicts": [
 							"O1",
 							"O2"
@@ -166,7 +169,7 @@
 					{
 						"title": "Basic",
 						"id": "W1",
-						"price": 99999,
+						"price": 50,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Basic static lighting for your stage or performance area. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures.",
 						"imageUrl": "assets/images/stage_basic.jpg",
@@ -177,7 +180,7 @@
 					{
 						"title": "Advanced",
 						"id": "W2",
-						"price": 99999,
+						"price": 75,
 						"detailPrompt": "Please describe your needs.",
 						"description": "Anything more than Basic.",
 						"imageUrl": "assets/images/stage_advanced.jpg",

@@ -344,9 +344,9 @@ export class Event {
 			warnings.push('You are submitting an event scheduled in the past.');
 		}
 		if (this.endDatetime.getHours() >= 23 || this.endDatetime.getHours() < 1) {
-			warnings.push('There is an hourly fee if we must work past 1 AM to tear down your event.');
+			warnings.push('There is a $75 hourly fee if we must work past 1 AM to tear down your event.');
 		} else if (this.endDatetime.getHours() < 5) {
-			warnings.push('There is an hourly fee if we must work past 1 AM for your event.');
+			warnings.push('There is a $75 hourly fee if we must work past 1 AM for your event.');
 		}
 		return warnings;
 	}
