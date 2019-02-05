@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { DB_URL } from './constants';
-import { Event, Location, Organization, ServiceOption, ServiceOptionChoice } from './models';
+import { environment } from '../environments/environment';
+import { Event, Location, Organization } from './models';
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { WizardProgressStepComponent } from './wizard-progress-step/wizard-progress-step.component';
 import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/autopopulate-success-modal.component';
@@ -58,6 +58,10 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 		this.loadBaseData();
+	}
+
+	getDbUrl() {
+		return environment.DB_URL;
 	}
 
 	/**
@@ -227,7 +231,7 @@ export class AppComponent implements OnInit {
 
 	loadBaseData() {
 		const appComponent = this;
-		this.http.get(DB_URL + '/db/workorderwizard-load').subscribe(function(response) {
+		this.http.get(environment.DB_URL + '/db/workorderwizard-load').subscribe(function(response) {
 			appComponent.userContactInfo = response['user'];
 			const orgs = [];
 			for (const org of response['orgs']) {
@@ -248,7 +252,7 @@ export class AppComponent implements OnInit {
 		}, function(error) {
 			if (error.status === 401) {
 				appComponent.modalService.open(appComponent.loginRequiredModal, {backdrop: 'static', keyboard: false});
-				window.location.href = DB_URL + '/login/?force_cas=true&next=/workorder-wizard';
+				window.location.href = environment.DB_URL + '/login/?force_cas=true&next=/workorder-wizard';
 			} else {
 				const msg = 'Application data could not be retrieved from the server. Please try refreshing the page.';
 				appComponent.modalService.open(ErrorModalComponent, {backdrop: 'static', keyboard: false}).componentInstance.message = msg;
@@ -277,7 +281,7 @@ export class AppComponent implements OnInit {
 		}
 		let modal = this.displayAutopopulatingModal();
 		const appComponent = this;
-		this.http.post(DB_URL + '/db/workorderwizard-autopopulate', data,
+		this.http.post(environment.DB_URL + '/db/workorderwizard-autopopulate', data,
 				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {
 			modal.close();
 			if (response) {
@@ -356,13 +360,13 @@ export class AppComponent implements OnInit {
 		}
 		let modal = this.displaySubmittingModal();
 		const appComponent = this;
-		this.http.post(DB_URL + '/db/workorderwizard-submit', data,
+		this.http.post(environment.DB_URL + '/db/workorderwizard-submit', data,
 				{headers: new HttpHeaders({'Content-Type': 'application/json'})}).subscribe(function(response) {
 			modal.close();
 			appComponent.displaySubmitSuccessModal();
 			appComponent.overrideBeforeUnload = true;
 			setTimeout(function() {
-				window.location.href = DB_URL + response['event_url'];
+				window.location.href = environment.DB_URL + response['event_url'];
 			}, 2000);
 		}, function(error) {
 			modal.close();
