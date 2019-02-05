@@ -41,10 +41,11 @@
 	<!-- Welcome -->
 	<div class="row" *ngIf="activeStep === 'Welcome'">
 		<div class="col">
-			<h1>Testing!</h1>
+			<h1>Please select an option</h1>
 			<p>Please note that, as before, events submitted with less than 2 weeks' notice are considered late and will incur a late fee.</p>
-			<button (click)="initEvent('services_lightingsoundpower.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a lighting, sound, or power work order</button>
-			<button (click)="initEvent('services_projection.json', 'Perreault Hall UPR'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a projection work order</button>
+			<a href="http://localhost:8000/workorder" class="btn btn-block btn-lg btn-secondary mb-4">Create a work order for FY 2019 <span class="fa fa-external-link"></span></a>
+			<button (click)="initEvent('services_lightingsoundpower.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a lighting, sound, or power work order for FY 2020</button>
+			<button (click)="initEvent('services_projection.json', 'Perreault Hall UPR'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a projection work order for FY 2020</button>
 		</div>
 	</div>
 	<!-- /Welcome -->
