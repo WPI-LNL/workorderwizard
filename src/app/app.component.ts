@@ -198,13 +198,13 @@ export class AppComponent implements OnInit {
 								const dependency_names = dependency_set.map(function(dep_id: string) {
 									const serviceOption = service.getServiceOptionWithChoice(dep_id);
 									const dep = serviceOption.getChoice(dep_id);
-									return serviceOption.title + ':' + dep.title;
+									return dep.title + ' ' + serviceOption.title;
 								});
 								this.servicesErrors.push(`${choice.title} requires one of ${dependency_names.join(', ')}`);
 							} else {
 								const serviceOption = service.getServiceOptionWithChoice(dependency_set[0]);
 								const dep = serviceOption.getChoice(dependency_set[0]);
-								this.servicesErrors.push(`${choice.title} requires ${serviceOption.title + ':' + dep.title}`);
+								this.servicesErrors.push(`${choice.title} requires ${dep.title + ' ' + serviceOption.title}`);
 							}
 							break;
 						}

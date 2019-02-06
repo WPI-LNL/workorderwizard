@@ -159,7 +159,7 @@
 		"title": "Lighting",
 		"options": [
 			{
-				"title": "Stage lighting",
+				"title": "Stage Lighting",
 				"choices": [
 					{
 						"title": "None",
@@ -175,6 +175,9 @@
 						"imageUrl": "assets/images/stage_basic.jpg",
 						"locationBlacklist": [
 							"Court Floor"
+						],
+						"addons": [
+							"Mirror Ball"
 						]
 					},
 					{
@@ -207,13 +210,17 @@
 							"Quad (Rain Location: Wedge)",
 							"Quad Tent",
 							"[NOT LISTED]"
+						],
+						"addons": [
+							"Mirror Ball",
+							"Strobe Lights"
 						]
 					}
 				],
 				"defaultChoice": "None"
 			},
 			{
-				"title": "Area lighting",
+				"title": "Area Lighting",
 				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
 				"choices": [
 					{
@@ -229,8 +236,7 @@
 						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc.",
 						"imageUrl": "assets/images/area_basic.jpg",
 						"addons": [
-							"Mirror Ball",
-							"Strobe Lights"
+							"Mirror Ball"
 						]
 					},
 					{
@@ -281,6 +287,7 @@
 						"title": "Uplighting",
 						"id": "UP",
 						"price": 50,
+						"detailPrompt": "You may specify colors and/or placement of the uplighting if you have a preference.",
 						"description": "Prettify the room.",
 						"imageUrl": "assets/images/uplighting.jpg"
 					}
@@ -296,21 +303,6 @@
 						"id": "HZ",
 						"price": 20,
 						"imageUrl": "assets/images/haze.jpg"
-					}
-				]
-			},
-			{
-				"title": "Flown projector",
-				"isBoolean": true,
-				"choices": [
-					{
-						"title": "Truss-mounted projector",
-						"id": "RP",
-						"price": 20,
-						"imageUrl": "assets/images/flown_projector.jpg",
-						"dependencies": [
-							["R1", "R2"]
-						]
 					}
 				]
 			},
@@ -351,6 +343,9 @@
 							"Quad (Rain Location: Wedge)",
 							"Quad Tent",
 							"[NOT LISTED]"
+						],
+						"addons": [
+							"Truss-mounted Projector"
 						]
 					},
 					{
@@ -378,6 +373,9 @@
 							"Quad (Rain Location: Wedge)",
 							"Quad Tent",
 							"[NOT LISTED]"
+						],
+						"addons": [
+							"Truss-mounted Projector"
 						]
 					}
 				],
@@ -393,6 +391,11 @@
 			{
 				"title": "Strobe Lights",
 				"price": 0,
+				"isBoolean": true
+			},
+			{
+				"title": "Truss-mounted Projector",
+				"price": 20,
 				"isBoolean": true
 			}
 		]
