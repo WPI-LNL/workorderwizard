@@ -216,8 +216,8 @@ export class AppComponent implements OnInit {
 							const serviceOption = service.getServiceOptionWithChoice(choice.id);
 							const conflictServiceOption = service.getServiceOptionWithChoice(conflict);
 							const conflictChoice = conflictServiceOption.getChoice(conflict);
-							const choiceTitle = serviceOption.title === choice.title ? choice.title : serviceOption.title + ':' + choice.title;
-							this.servicesWarnings.push(`Not recommended to combine ${choiceTitle} and ${conflictServiceOption.title + ':' + conflictChoice.title}`);
+							const choiceTitle = serviceOption.title === choice.title ? choice.title : choice.title + ' ' + serviceOption.title;
+							this.servicesWarnings.push(`Not recommended to combine ${choiceTitle} and ${conflictChoice.title + ' ' + conflictServiceOption.title}`);
 						}
 					}
 				}

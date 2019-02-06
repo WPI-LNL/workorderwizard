@@ -4,14 +4,14 @@
 		"options": [
 			{
 				"title": "Inputs",
-				"description": "Every sound event has inputs. Some examples are a microphone, an instrument such as a keyboard or electric guitar, or a phone. For most events, the number of inputs is the number of microphones. We do not count inputs from our own laptop for playing music.",
+				"description": "Every sound event has inputs. Inputs include microphones, instruments, laptops, phones, etc.",
 				"choices": [
 					{
 						"title": "Small",
 						"id": "I1",
 						"price": 50,
 						"detailPrompt": "Please describe your microphone and laptop/phone input requirements.",
-						"description": "Music and up to 2 inputs. Suitable for speaking events, small performances, or background music.",
+						"description": "Music and up to 2 additional inputs. Great for speeches, and playing music with occasional announcements.",
 						"addons": [
 							"Wireless Microphone"
 						]
@@ -21,7 +21,7 @@
 						"id": "I2",
 						"price": 75,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, laptop input, etc.",
-						"description": "Music and up to 8 inputs. Suitable for panel discussions or small performances.",
+						"description": "Music and up to 8 additional inputs. Great for panel discussions, a capella shows, and small on-stage performances.",
 						"addons": [
 							"Wireless Microphone"
 						]
@@ -31,7 +31,7 @@
 						"id": "I3",
 						"price": 150,
 						"detailPrompt": "Please describe your microphone and other input requirements, including any instruments/vocalists that need to be mic'ed, any DIs required, etc. If your event is a stage show with multiple acts, you will be asked for a set list via email and you only need to provide a general description here.",
-						"description": "Unlimited inputs. Suitable for large stage shows, concerts, bands, or other large events.",
+						"description": "Unlimited inputs. Great for bands, concerts, and large on-stage performances.",
 						"addons": [
 							"Wireless Microphone"
 						]
@@ -46,7 +46,7 @@
 						"title": "House System",
 						"id": "O1",
 						"price": 0,
-						"description": "We will use the speakers that are permanently installed in the venue.",
+						"description": "Use the speakers built into the room. Only available in some locations.",
 						"locationWhitelist": [
 							"Alden Hall",
 							"Court Floor",
@@ -70,7 +70,7 @@
 						"title": "Small",
 						"id": "O2",
 						"price": 80,
-						"description": "Two small speakers. Suitable for speaking events, casual background music, or small event spaces.",
+						"description": "Two small speakers. Great for background music or speeches in a smaller space.",
 						"imageUrl": "assets/images/speakers_small.jpg",
 						"locationBlacklist": [
 							"Court Floor",
@@ -91,7 +91,7 @@
 						"title": "Large",
 						"id": "O3",
 						"price": 120,
-						"description": "Two larger speakers. Suitable for stage shows, dances, or larger event spaces.",
+						"description": "A pair of speakers for an event in a large space with more people. Great for concerts, bands, and stage shows.",
 						"imageUrl": "assets/images/speakers_large.jpg"
 					}
 				]
@@ -105,7 +105,7 @@
 						"title": "Subwoofers",
 						"id": "SB",
 						"price": 50,
-						"description": "Subwoofers add bass to your event's sound. Recommended for bands, stage shows, or dances. Suitable for most events involving music.",
+						"description": "Subwoofers add more bass. Great for concerts, bands, or just playing music.",
 						"dependencies": [
 							["O3"]
 						]
@@ -121,7 +121,7 @@
 						"id": "OM",
 						"price": 30,
 						"detailPrompt": "Please describe your monitor requirements.",
-						"description": "Monitors for on-stage performers. Recommended for stage shows and bands.",
+						"description": "Speakers for people on the stage. Highly recommended for bands and on-stage performances.",
 						"imageUrl": "assets/images/monitor.jpg",
 						"conflicts": [
 							"O1",
@@ -150,7 +150,7 @@
 		"addons": [
 			{
 				"title": "Wireless Microphone",
-				"description": "Wired microphones are included but there is a fee per wireless microphone.",
+				"description": "Wireless microphones can easily be added to any input level, increasing flexibility for the performer and reducing stage clutter.",
 				"price": 10
 			}
 		]
@@ -160,6 +160,7 @@
 		"options": [
 			{
 				"title": "Stage Lighting",
+				"description": "Illuminate your stage or performance area.",
 				"choices": [
 					{
 						"title": "None",
@@ -171,7 +172,7 @@
 						"id": "W1",
 						"price": 50,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Basic static lighting for your stage or performance area. No changing colors, moving lights, different scenes, etc. Maximum of 8 fixtures.",
+						"description": "Stationary stage lighting that may be dimmed as necessary. Great for small on-stage events.",
 						"imageUrl": "assets/images/stage_basic.jpg",
 						"locationBlacklist": [
 							"Court Floor"
@@ -185,7 +186,7 @@
 						"id": "W2",
 						"price": 75,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Anything more than Basic.",
+						"description": "Changing colors and moving lights. Great for larger events such as concerts or large on-stage performances.",
 						"imageUrl": "assets/images/stage_advanced.jpg",
 						"locationWhitelist": [
 							"Alden Hall",
@@ -221,7 +222,7 @@
 			},
 			{
 				"title": "Area Lighting",
-				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
+				"description": "Lighting for an area other than a stage, such as a dance floor or dinner tables.",
 				"choices": [
 					{
 						"title": "None",
@@ -233,7 +234,7 @@
 						"id": "A1",
 						"price": 50,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Basic area lighting that can be dimmed. No changing colors, moving lights, different scenes, etc.",
+						"description": "May be statically colored and dimmed as necessary. Great for lighting a few tables or small areas.",
 						"imageUrl": "assets/images/area_basic.jpg",
 						"addons": [
 							"Mirror Ball"
@@ -244,7 +245,7 @@
 						"id": "A2",
 						"price": 75,
 						"detailPrompt": "Please describe your needs.",
-						"description": "Anything more than Basic.",
+						"description": "Changing colors, moving lights, and effects. Great for dances.",
 						"imageUrl": "assets/images/area_advanced.jpg",
 						"locationWhitelist": [
 							"Alden Hall",
@@ -288,14 +289,14 @@
 						"id": "UP",
 						"price": 50,
 						"detailPrompt": "You may specify colors and/or placement of the uplighting if you have a preference.",
-						"description": "Prettify the room.",
+						"description": "Uplighting to give your event an extra splash of color. Great for a wide variety of occasions.",
 						"imageUrl": "assets/images/uplighting.jpg"
 					}
 				]
 			},
 			{
 				"title": "Haze",
-				"description": "We own one fog machine and can rent more to suit your needs. Use of haze indoors requires a fire watch which you must arrange and pay for.",
+				"description": "Add fog to your event. Requires coordination with WPI Police for use indoors.",
 				"isBoolean": true,
 				"choices": [
 					{
@@ -308,7 +309,7 @@
 			},
 			{
 				"title": "Rigging",
-				"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu sem elit. Mauris varius quis nulla ut condimentum.",
+				"description": "Rigging involves hanging truss from the ceiling to allow for overhead mounting of lights.",
 				"choices": [
 					{
 						"title": "None",
@@ -319,6 +320,7 @@
 						"title": "Basic",
 						"id": "R1",
 						"price": 60,
+						"description": "A single length of truss. Often necessary for events in Alden, Harrington, Odeum, Recreation Center Courts, and the Quad.",
 						"imageUrl": "assets/images/rigging_basic.jpg",
 						"locationWhitelist": [
 							"Alden Hall",
@@ -352,6 +354,7 @@
 						"title": "Advanced",
 						"id": "R2",
 						"price": 120,
+						"description": "Multiple lengths of truss. Most often used for events in Alden and Harrington.",
 						"imageUrl": "assets/images/rigging_advanced.jpg",
 						"locationWhitelist": [
 							"Alden Hall",
@@ -385,6 +388,7 @@
 		"addons": [
 			{
 				"title": "Mirror Ball",
+				"description": "Also known as a disco ball.",
 				"price": 0,
 				"isBoolean": true
 			},
@@ -395,6 +399,7 @@
 			},
 			{
 				"title": "Truss-mounted Projector",
+				"description": "Hanging a projector from truss. The projector must be borrowed from the ATC.",
 				"price": 20,
 				"isBoolean": true
 			}
@@ -412,7 +417,7 @@
 						"id": "PD",
 						"price": 40,
 						"detailPrompt": "Please describe your power needs.",
-						"description": "Power your pizza warmers or something."
+						"description": "Heavy duty power distribution for your large equipment such as food warmers or power to many tables for attendees. Not necessary for small electronics that just need an extension cord."
 					}
 				]
 			}

@@ -66,7 +66,7 @@ export class MultiServiceOptionComponent implements OnInit {
 							examine the details of your event.`);
 				}
 				if (this.location.building !== 'Outdoors' && serviceOption.selectedChoice.id === 'HZ') {
-					this.warnings.push(`Use of haze indoors requires a fire watch, which you must arrange and pay for.`);
+					this.warnings.push('Use of haze indoors requires coordination with WPI Police.');
 				}
 			}
 		}

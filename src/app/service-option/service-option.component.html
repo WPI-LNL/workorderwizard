@@ -52,13 +52,13 @@
 		</div>
 	</div>
 </div>
-<app-addon *ngFor="let addon of getAddons()" [addon]="addon"></app-addon>
 <div class="row mb-4" *ngFor="let warning of warnings">
 	<div class="col">
 		<div class="alert alert-warning" [innerHtml]="warning"></div>
 	</div>
 </div>
-<div class="row mb-4" *ngIf="serviceOption.selectedChoice && serviceOption.selectedChoice.detailPrompt">
+<app-addon *ngFor="let addon of getAddons()" [addon]="addon"></app-addon>
+<div class="row mt-4 mb-4" *ngIf="serviceOption.selectedChoice && serviceOption.selectedChoice.detailPrompt">
 	<div class="col">
 		<label>{{ serviceOption.selectedChoice.detailPrompt }}</label>
 		<textarea [(ngModel)]="serviceOption.detail" class="form-control"></textarea>

@@ -1,8 +1,16 @@
 <div class="row mb-3">
 	<div class="col">
 		<div class="float-left">
-			<strong>{{ addon.title }} <span *ngIf="addon.price > 0">${{ addon.price }}</span></strong><br>
-			{{ addon.description }}
+			<div class="row">
+				<div class="col">
+					<strong>{{ addon.title }} <span *ngIf="addon.price > 0">${{ addon.price }}</span></strong><br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col description">
+					{{ addon.description }}
+				</div>
+			</div>
 		</div>
 		<div class="float-right">
 			<div *ngIf="!addon.isBoolean" class="form-inline">
