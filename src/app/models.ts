@@ -50,6 +50,7 @@ export class ServiceOption {
 	choices: ServiceOptionChoice[];
 	selectedChoice: ServiceOptionChoice;
 	detail: string;
+	categoryTitle: string;
 
 	constructor(data: object) {
 		const data2 = Object.assign({}, data);
