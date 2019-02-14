@@ -252,7 +252,7 @@ export class AppComponent implements OnInit {
 		}, function(error) {
 			if (error.status === 401) {
 				appComponent.modalService.open(appComponent.loginRequiredModal, {backdrop: 'static', keyboard: false});
-				window.location.href = environment.DB_URL + '/login/?force_cas=true&next=/workorder-wizard';
+				window.location.href = environment.DB_URL + '/login/?force_cas=true&next=/workorder';
 			} else {
 				const msg = 'Application data could not be retrieved from the server. Please try refreshing the page.';
 				appComponent.modalService.open(ErrorModalComponent, {backdrop: 'static', keyboard: false}).componentInstance.message = msg;
