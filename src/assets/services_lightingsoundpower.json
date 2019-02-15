@@ -296,13 +296,13 @@
 			},
 			{
 				"title": "Haze",
-				"description": "Add fog to your event. Requires coordination with WPI Police for use indoors.",
 				"isBoolean": true,
 				"choices": [
 					{
 						"title": "Haze",
 						"id": "HZ",
 						"price": 20,
+						"description": "Add fog to your event. Requires coordination with WPI Police for use indoors.",
 						"imageUrl": "assets/images/haze.jpg"
 					}
 				]
