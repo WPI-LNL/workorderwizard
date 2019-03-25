@@ -8,70 +8,40 @@
 					{
 						"title": "Digital",
 						"id": "DP",
-						"price": 20,
+						"price": 55,
 						"description": "Projection on our Christie CP2210 digital projector for cinema style showing of Blu-ray, DVD, or rented hard drives from providers such as Swank or Criterion Pictures.",
 						"locationWhitelist": [
 							"Perreault Hall UPR"
-						],
-						"addons": [
-							"Additional 20 Minutes Digital Projection"
 						]
 					},
 					{
 						"title": "16mm",
 						"id": "16",
-						"price": 20,
+						"price": 0,
 						"description": "Showing of older style film such as cartoons or MOSFETs. Can be shown outside of Fuller Upper; please contact us for details.",
 						"locationWhitelist": [
 							"Perreault Hall UPR"
-						],
-						"addons": [
-							"16mm Film Reel"
 						]
 					},
 					{
 						"title": "35mm",
 						"id": "35",
-						"price": 30,
+						"price": 0,
 						"description": "Showing of optical 35mm film in Fuller Upper, rented from a provider such as Swank or Criterion Pictures.",
 						"locationWhitelist": [
 							"Perreault Hall UPR"
-						],
-						"addons": [
-							"35mm Film Reel"
 						]
 					},
 					{
 						"title": "70mm",
 						"id": "70",
-						"price": 55,
+						"price": 0,
 						"description": "Showing of magnetic 70mm film in Fuller Upper, rented from a provider such as Swank or Criterion Pictures.",
 						"locationWhitelist": [
 							"Perreault Hall UPR"
-						],
-						"addons": [
-							"70mm Film Reel"
 						]
 					}
 				]
-			}
-		],
-		"addons": [
-			{
-				"title": "Additional 20 Minutes Digital Projection",
-				"price": 7
-			},
-			{
-				"title": "16mm Film Reel",
-				"price": 12
-			},
-			{
-				"title": "35mm Film Reel",
-				"price": 10
-			},
-			{
-				"title": "70mm Film Reel",
-				"price": 15
 			}
 		]
 	}
