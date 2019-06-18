@@ -43,9 +43,8 @@
 		<div class="col">
 			<h1>Please select an option</h1>
 			<p>Please submit a work order at least 2 weeks before your event.</p>
-			<a href="{{ getDbUrl() }}/workorder-old" class="btn btn-block btn-lg btn-secondary mb-4">Create a work order for an event before July 1, 2019 <span class="fa fa-external-link"></span></a>
-			<button (click)="initEvent('services_lightingsoundpower.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a lighting, sound, or power work order for an event after July 1, 2019</button>
-			<button (click)="initEvent('services_projection.json', 'Perreault Hall UPR'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a projection work order for an event after July 1, 2019</button>
+			<button (click)="initEvent('services_lightingsoundpower.json'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a lighting, sound, or power work order</button>
+			<button (click)="initEvent('services_projection.json', 'Perreault Hall UPR'); advanceStep()" class="btn btn-block btn-lg btn-primary mb-4">Create a projection work order</button>
 		</div>
 	</div>
 	<!-- /Welcome -->
@@ -202,7 +201,7 @@
 			<div class="col">
 				<div *ngFor="let warning of event.getReviewPageWarnings()" class="alert alert-warning" [innerHtml]="warning"></div>
 				<p>
-					Please review your work order and submit it below! We will email you with any questions.
+					Please review your work order and submit it below. We will email you with any questions.
 					If you would like to set up a meeting, email <a href="mailto:lnl@wpi.edu">lnl@wpi.edu</a>.
 					The price calculated by this online form is not a quote; please contact us to receive an official quote.
 				</p>
