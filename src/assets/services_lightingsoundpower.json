@@ -394,6 +394,7 @@
 			},
 			{
 				"title": "Strobe Lights",
+				"description": "Requires the event to have posted strobe light warnings.",
 				"price": 0,
 				"isBoolean": true
 			},
