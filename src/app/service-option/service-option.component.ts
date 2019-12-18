@@ -21,7 +21,7 @@ export class ServiceOptionComponent implements OnInit {
 	}
 
 	select(choice: ServiceOptionChoice) {
-		if (this.serviceOption.selectedChoice == choice) {
+		if (this.serviceOption.selectedChoice === choice) {
 			const nullChoices = this.serviceOption.choices.filter(choice => choice.id === null);
 			if (nullChoices.length === 0) {
 				this.serviceOption.selectedChoice = null;
@@ -51,7 +51,7 @@ export class ServiceOptionComponent implements OnInit {
 		this.warnings = [];
 		if (this.serviceOption.selectedChoice) {
 			if (this.serviceOption.selectedChoice.locationWhitelist &&
-				this.serviceOption.selectedChoice.locationWhitelist.indexOf(this.location.name) == -1) {
+				this.serviceOption.selectedChoice.locationWhitelist.indexOf(this.location.name) === -1) {
 					this.warnings.push(`<strong>Not recommended in this location.</strong> \
 						It is unusual to do ${this.serviceOption.title}: ${this.serviceOption.selectedChoice.title} \
 						in ${this.location.name} \u2013 ${this.location.building}. We will carefully \

@@ -16,26 +16,26 @@ import { AutopopulateSuccessModalComponent } from './autopopulate-success-modal/
 import { MultiServiceOptionComponent } from './multi-service-option/multi-service-option.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WizardProgressStepComponent,
-    OrganizationCardComponent,
-    DatetimePickerComponent,
-    ServiceOptionComponent,
-    ErrorModalComponent,
-    ServiceComponent,
-    AddonComponent,
-    AutopopulateSuccessModalComponent,
-    MultiServiceOptionComponent
-  ],
-  imports: [
-    BrowserModule,
+	declarations: [
+		AppComponent,
+		WizardProgressStepComponent,
+		OrganizationCardComponent,
+		DatetimePickerComponent,
+		ServiceOptionComponent,
+		ErrorModalComponent,
+		ServiceComponent,
+		AddonComponent,
+		AutopopulateSuccessModalComponent,
+		MultiServiceOptionComponent
+	],
+	imports: [
+		BrowserModule,
 		FormsModule,
 		HttpClientModule,
-    NgbModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+		NgbModule
+	],
+	providers: [],
+	bootstrap: [AppComponent],
 	entryComponents: [ErrorModalComponent, AutopopulateSuccessModalComponent]
 })
 export class AppModule { }

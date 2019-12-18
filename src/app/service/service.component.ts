@@ -39,7 +39,7 @@ export class ServiceComponent implements OnInit {
 		for (const choice of this.service.allSelectedChoices()) {
 			if (choice.addons) {
 				for (const title of choice.addons) {
-					unavailableAddons = unavailableAddons.filter(addon => addon.title != title)
+					unavailableAddons = unavailableAddons.filter(addon => addon.title !== title);
 				}
 			}
 		}

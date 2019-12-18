@@ -14,7 +14,7 @@ const groupBy = function(xs, key) {
 		return rv;
 	}, {});
 	let output = [];
-	for (const group in grouped) {
+	for (const group of Object.keys(grouped)) {
 		output.push(group);
 		output = output.concat(grouped[group]);
 	}
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
 	 * Display a warning before navigating away from the workorder wizard if the user has advanced past the welcome page.
 	 */
 	beforeUnload() {
-		return this.activeStep == 'Welcome' || this.overrideBeforeUnload;
+		return this.activeStep === 'Welcome' || this.overrideBeforeUnload;
 	}
 
 	initEvent(servicesAsset: string, forceLocation: string) {
@@ -91,7 +91,7 @@ export class AppComponent implements OnInit {
 				if (i + 1 >= this.STEPS.length) {
 					throw new Error('Attempted to advance past the last step.');
 				}
-				this.switchToStep(this.STEPS[i+1]);
+				this.switchToStep(this.STEPS[i + 1]);
 				return;
 			}
 		}
@@ -217,7 +217,8 @@ export class AppComponent implements OnInit {
 							const conflictServiceOption = service.getServiceOptionWithChoice(conflict);
 							const conflictChoice = conflictServiceOption.getChoice(conflict);
 							const choiceTitle = serviceOption.title === choice.title ? choice.title : choice.title + ' ' + serviceOption.title;
-							this.servicesWarnings.push(`Not recommended to combine ${choiceTitle} and ${conflictChoice.title + ' ' + conflictServiceOption.title}`);
+							this.servicesWarnings.push(
+								`Not recommended to combine ${choiceTitle} and ${conflictChoice.title + ' ' + conflictServiceOption.title}`);
 						}
 					}
 				}
@@ -321,7 +322,7 @@ export class AppComponent implements OnInit {
 				}
 			}
 		}
-		console.warn(`Unknown service ID ${serviceOptionChoiceId} encountered during autopopulation.`)
+		console.warn(`Unknown service ID ${serviceOptionChoiceId} encountered during autopopulation.`);
 	}
 
 	submit() {
