@@ -1,5 +1,18 @@
 {
-  "name": "workorder-wizard",
+  "name": "lnl-workorder-wizard",
+  "description": "Work order wizard for WPI Lens and Lights, designed to interface with LNLDB",
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/WPI-LNL/workorderwizard",
+  "bugs": {
+    "url": "https://github.com/WPI-LNL/workorderwizard/issues",
+    "email": "lnl-w@wpi.edu"
+  },
+  "contributors": [
+    {
+      "name": "Ryan LaPointe",
+      "url": "https://github.com/rrlapointe"
+    }
+  ],
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
