@@ -64,6 +64,7 @@ export class ServiceOptionComponent implements OnInit {
 						in ${this.location.name} \u2013 ${this.location.building}. We will carefully \
 						examine the details of your event.`);
 			}
+			// Custom restrictions that don't fit the facilities provided in the services JSON format
 			if (this.location.building !== 'Outdoors' && this.serviceOption.selectedChoice.id === 'HZ') {
 				this.warnings.push('Use of haze indoors requires coordination with WPI Police.');
 			}

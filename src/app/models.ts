@@ -137,6 +137,17 @@ export class Service {
 		return this.serviceOptions.map(serviceOption => serviceOption.choices).reduce((a,b) => a.concat(b))
 	}
 
+	getServiceOption(title: string) {
+		const serviceOptions = this.serviceOptions.filter(serviceOption => serviceOption.title === title);
+		if (serviceOptions.length === 0) {
+			return null;
+		}
+		if (serviceOptions.length > 1) {
+			throw "It is not allowed for multiple ServiceOptions to have the same title.";
+		}
+		return serviceOptions[0];
+	}
+
 	getChoice(id: string) {
 		const choices = this.allChoices().filter(choice => choice.id === id);
 		if (choices.length === 0) {
@@ -350,5 +361,16 @@ export class Event {
 			warnings.push('There is a $75 hourly fee if we must work past 1 AM for your event.');
 		}
 		return warnings;
+	}
+
+	getService(title: string) {
+		const services = this.services.filter(service => service.title === title);
+		if (services.length === 0) {
+			return null;
+		}
+		if (services.length > 1) {
+			throw "It is not allowed for multiple Services to have the same title.";
+		}
+		return services[0];
 	}
 }

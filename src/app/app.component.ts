@@ -224,6 +224,26 @@ export class AppComponent implements OnInit {
 				}
 			}
 		}
+		// Custom restrictions that don't fit the facilities provided in the services JSON format
+		const lighting = this.event.getService('Lighting');
+		if (lighting.getServiceOption('Rigging').selectedChoice.id === null &&
+			((this.event.location.building === 'Harrington Auditorium' && this.event.location.name === 'Court Floor') ||
+			(this.event.location.building === 'Alden Memorial' && this.event.location.name === 'Alden Hall'))) {
+				const stageLighting = lighting.getServiceOptionWithChoice('W2');
+				const areaLighting =  lighting.getServiceOptionWithChoice('A2');
+				if (stageLighting.selectedChoice.id === 'W2') {
+					this.servicesErrors.push(`${stageLighting.title + ' \u2013 ' + stageLighting.selectedChoice.title} in \
+						${this.event.location.name + ' \u2013 ' + this.event.location.building} requires rigging`);
+				}
+				if (areaLighting.selectedChoice.id === 'A2') {
+					this.servicesErrors.push(`${areaLighting.title + ' \u2013 ' + areaLighting.selectedChoice.title} in \
+						${this.event.location.name + ' \u2013 ' + this.event.location.building} requires rigging`);
+				} else if (areaLighting.selectedChoice.id === 'A1') {
+					this.servicesWarnings.push(`${areaLighting.title + ' \u2013 ' + areaLighting.selectedChoice.title} in \
+						${this.event.location.name + ' \u2013 ' + this.event.location.building} usually requires rigging. \
+						We will carefully examine the details of your event.`);
+				}
+		}
 	}
 
 	/***************************
