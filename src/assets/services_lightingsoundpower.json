@@ -178,7 +178,8 @@
 							"Court Floor"
 						],
 						"addons": [
-							"Mirror Ball"
+							"Mirror Ball",
+              "Special / Spotlight"
 						]
 					},
 					{
@@ -214,7 +215,8 @@
 						],
 						"addons": [
 							"Mirror Ball",
-							"Strobe Lights"
+							"Strobe Lights",
+              "Special / Spotlight"
 						]
 					}
 				],
@@ -237,7 +239,8 @@
 						"description": "May be statically colored and dimmed as necessary. Great for lighting a few tables or small areas.",
 						"imageUrl": "assets/images/area_basic.jpg",
 						"addons": [
-							"Mirror Ball"
+							"Mirror Ball",
+              "Special / Spotlight"
 						]
 					},
 					{
@@ -273,7 +276,8 @@
 						],
 						"addons": [
 							"Mirror Ball",
-							"Strobe Lights"
+							"Strobe Lights",
+              "Special / Spotlight"
 						]
 					}
 				],
@@ -290,7 +294,10 @@
 						"price": 50,
 						"detailPrompt": "You may specify colors and/or placement of the uplighting if you have a preference.",
 						"description": "Uplighting to give your event an extra splash of color. Great for a wide variety of occasions.",
-						"imageUrl": "assets/images/uplighting.jpg"
+						"imageUrl": "assets/images/uplighting.jpg",
+            "addons": [
+              "Special / Spotlight"
+            ]
 					}
 				]
 			},
@@ -400,10 +407,16 @@
 			},
 			{
 				"title": "Truss-mounted Projector",
-				"description": "Hanging a projector from truss. The projector must be borrowed from the ATC.",
+				"description": "Hanging a projector from truss.",
 				"price": 20,
 				"isBoolean": true
-			}
+			},
+      {
+        "title": "Special / Spotlight",
+        "description": "A single, stationary light illuminating a specific spot. Great for a photobooth or banner on the wall.",
+        "price": 10,
+        "isBoolean": true
+      }
 		]
 	},
 	{
