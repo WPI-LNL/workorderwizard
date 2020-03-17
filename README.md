@@ -14,6 +14,17 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Deploying to userweb
+
+To build and deploy the app to LNL's production environment, use these commands:
+
+```console
+foo@bar:~/lnl/workorder-wizard$ node_modules/@angular/cli/bin/ng build --prod --base-href '/workorder/' --deploy-url '/workorder/'
+foo@bar:~/lnl/workorder-wizard$ rsync -avz --update --checksum dist/workorder-wizard/ lnl@linux.wpi.edu:/ifs/home/lnl/public_html/workorder
+```
+
+Then `ssh` into the CCC server and manually delete any old files in `~/public_html/workorder/` that are not part of the latest version you just copied over.
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
