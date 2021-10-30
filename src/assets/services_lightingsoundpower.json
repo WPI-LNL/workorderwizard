@@ -434,6 +434,26 @@
 						"description": "Heavy duty power distribution for your large equipment such as food warmers or power to many tables for attendees. Not necessary for small electronics that just need an extension cord."
 					}
 				]
+			},
+			{
+				"title": "Inflatable Screen",
+				"isBoolean": true,
+				"choices": [
+					{
+						"title": "Inflatable Screen",
+						"id": "IS",
+						"price": 0,
+						"imageUrl": "assets/images/inflatable_screen.jpg",
+						"description": "Large outdoor inflatable screen commonly used on the Quad with our Digital Projector (Christie CP2210).",
+						"locationWhitelist": [
+							"Quad (Rain Location: CANCEL EVENT)",
+							"Quad (Rain Location: Harrington)",
+							"Quad (Rain Location: Rec)",
+							"Higgins House Back Lawn",
+							"Court Floor"
+						]
+					}
+				]
 			}
 		]
 	}
