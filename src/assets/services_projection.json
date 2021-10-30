@@ -15,23 +15,6 @@
 						]
 					},
 					{
-						"title": "Inflatable Screen",
-						"id": "IS",
-						"price": 0,
-						"description": "Large outdoor inflatable screen commonly used on the Quad with our Digital Projector (Christie CP2210)",
-						"locationWhitelist": [
-							"Quad (Rain Location: Alden)",
-							"Quad (Rain Location: Campus Center)",
-							"Quad (Rain Location: CANCEL EVENT)",
-							"Quad (Rain Location: Fuller Upper)",
-							"Quad (Rain Location: Harrington)",
-							"Quad (Rain Location: Rec)",
-							"Quad (Rain Location: Riley Commons)",
-							"Quad (Rain Location: Wedge)",
-							"Quad Tent "
-						]
-					},
-					{
 						"title": "16mm",
 						"id": "16",
 						"price": 0,
